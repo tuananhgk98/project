@@ -19,5 +19,9 @@ export class HomeService {
     getAllProduct() : Observable<any>{
         return this.http.get('http://localhost:3000/product/list', this.httpOptions);
     }
+
+    getProductByid(id, data) : Observable<any> {
+        return this.http.post(`http://localhost:3000/product/${id}`, data);
+    }
 }
 
