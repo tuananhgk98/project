@@ -29,10 +29,15 @@ app.use(function (req, res, next) {
 
 
 var productRoute = require('./routes/product.route');
+var mailRoute = require('./routes/mail.route');
+var subscribeRoute = require('./routes/subscribe.route');
 
 
 
 app.use('/product',productRoute);
+app.use('/mail', mailRoute);
+app.use('/subscribe',subscribeRoute);
+
 
 app.get('/test', function (req, res) {
     res.status(200).send({

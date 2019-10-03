@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   products: any[];
 
-  cart = localStorage.getItem('cart');
+  cart: any;
   cartArray: any;
 
 
@@ -24,9 +24,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getCartInfo() {
+    this.cart = localStorage.getItem('cart');
+    this.cartArray = JSON.parse(this.cart);
+  }
 
   addToCart(id, name, imageURL, price) {
-
+    this.getCartInfo();
     let data = {
       id: id,
       name: name,
@@ -60,8 +64,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllProduct();
-    this.cartArray = JSON.parse(this.cart);
-
+    this.getCartInfo();
   }
 
 }

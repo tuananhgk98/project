@@ -18,7 +18,7 @@ module.exports.getAllProduct = function (req, res) {
 };
 
 module.exports.getOneProduct = function (req, res) {
-    products.findOne({ id: req.body.id }, function (err, data) {
+    products.findOne({ _id: req.body.id }, function (err, data) {
         if (err) res.send(json(err));
         res.status(200).send({
             OK: true,

@@ -47,13 +47,13 @@
             <div class="cake_feature_slider owl-carousel" *ngFor="let item of products" style="display: inline-block">
                 <div class="item">
                     <div class="cake_feature_item">
-                        <div class="cake_img" routerLink="/{{item.id}}">
+                        <div class="cake_img" routerLink="/{{item._id}}">
                             <img src="/assets/images/cake-feature/c-feature-1.jpg" alt="">
                         </div>
                         <div class="cake_text">
                             <h4>{{item.price}}</h4>
                             <h3>{{item.name}}</h3>
-                            <button class="btn btn-primary pest_btn" (click)="addToCart(item.id,item.name,item.imageURL,item.price)">Add to cart</button>
+                            <button class="btn btn-primary pest_btn" (click)="addToCart(item._id,item.name,item.imageURL,item.price)">Add to cart</button>
                         </div>
                     </div>
                 </div>
@@ -253,26 +253,6 @@
     </div>
 </section>
 
-<section class="newsletter_area">
-    <div class="container">
-        <div class="row newsletter_inner">
-            <div class="col-lg-6">
-                <div class="news_left_text">
-                    <h4>Join our Newsletter list to get all the latest offers, discounts and other benefits</h4>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="newsletter_form">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter your email address">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Subscribe Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<app-subscribe></app-subscribe>
 
 <app-footer></app-footer>

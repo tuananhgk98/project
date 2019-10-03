@@ -26,10 +26,10 @@
                     <h5>Price : <span>{{product.price}}đ</span></h5>
                     <div class="quantity_box">
                         <label for="quantity">Quantity : </label>
-                        <input type="number" placeholder="1" id="quantity">
+                        <input type="number" placeholder="1" id="quantity" name="qty" [(ngModel)]="qty">
                         
                     </div>
-                    <a class="pink_more">Add to Cart</a>
+                    <button class="pink_more" (click)="addToCart();">Add to Cart</button>
                 </div>
             </div>
         </div>

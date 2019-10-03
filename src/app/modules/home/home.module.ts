@@ -8,9 +8,10 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
+import { SubscribeComponent } from '../../components/commons/subscribe/subscribe.component';
 
 @NgModule({
-  declarations: [HomeComponent, ProductDetailComponent,HeaderComponent,FooterComponent],
+  declarations: [HomeComponent, ProductDetailComponent,HeaderComponent,FooterComponent,SubscribeComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

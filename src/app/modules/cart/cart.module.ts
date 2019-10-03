@@ -7,10 +7,11 @@ import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
+import { SubscribeComponent } from '../../components/commons/subscribe/subscribe.component';
 
 
 @NgModule({
-  declarations: [CartComponent, HeaderComponent, FooterComponent],
+  declarations: [CartComponent, HeaderComponent, FooterComponent,SubscribeComponent],
   imports: [
     CommonModule,
     CartRoutingModule,
