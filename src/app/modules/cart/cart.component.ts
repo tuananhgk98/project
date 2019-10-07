@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from './cart.service';
+import { HomeService } from '../home/service/home.service';
 
 @Component({
     selector: 'app-cart',
@@ -7,40 +9,78 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-    constructor() { }
+    constructor(private service: CartService,
+        private HomeService: HomeService) { }
 
     cart: any[];
-    total : number;
+    total: number;
+    discountCode: string = '';
+    discount: number = 0;
 
 
     getCartInfo() {
         this.cart = JSON.parse(localStorage.getItem('cart'));
- 
-        this.total = this.cart.map(i => i.price*i.quantity).reduce( (a,b) => a+b,0);
+
+        this.total = this.cart.map(i => i.price * i.quantity).reduce((a, b) => a + b, 0);
     }
 
     updateQty(e) {
         let id = e.srcElement.attributes.id.value;
         console.log(e);
-        let val = e.srcElement.value;
-        let index = this.cart.findIndex(function(i){
+        let val = +e.srcElement.value;
+        let dataProduct = {
+            id: id
+        };
+
+        this.HomeService.getProductByid(id, dataProduct).subscribe(res => {
+            if (val > JSON.parse(JSON.stringify(res)).data.quantity) {
+                alert(`You only can only buy ${JSON.parse(JSON.stringify(res)).data.name} up to ${JSON.parse(JSON.stringify(res)).data.quantity}`);
+                let index = this.cart.findIndex(function (i) {
+                    return i.id == id;
+                });
+                if (index !== -1) {
+                    this.cart[index].quantity = JSON.parse(JSON.stringify(res)).data.quantity;
+                    localStorage.setItem('cart', JSON.stringify(this.cart));
+                }
+                this.getCartInfo();
+
+            }
+        });
+        let index = this.cart.findIndex(function (i) {
             return i.id == id;
         });
-        if(index !== -1){
+        if (index !== -1) {
             this.cart[index].quantity = val;
             localStorage.setItem('cart', JSON.stringify(this.cart));
         }
         this.getCartInfo();
     }
 
-    removeItem(id){
-        let index = this.cart.findIndex(function(i){
+    removeItem(id) {
+        let index = this.cart.findIndex(function (i) {
             return i.id == id;
         });
         console.log(index);
-        this.cart.splice(index,1);
-        localStorage.setItem('cart',JSON.stringify(this.cart));
+        this.cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(this.cart));
         this.getCartInfo();
+    }
+
+    findCode() {
+        let data = {
+            id: this.discountCode
+        };
+        console.log(data);
+        this.service.getCode(data).subscribe(res => {
+            if (JSON.parse(JSON.stringify(res)).OK == true) {
+                this.discount = JSON.parse(JSON.stringify(res)).data.discount;
+                this.total = this.total - (this.total * this.discount) / 100;
+                alert(`Use discount code successful, you get ${this.discount} percent off`);
+            }
+        }, err => {
+            console.log(err);
+            alert('Your code is not valid');
+        })
     }
 
     ngOnInit() {

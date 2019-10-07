@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './components/home/home.component';
@@ -9,13 +9,20 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
 import { SubscribeComponent } from '../../components/commons/subscribe/subscribe.component';
+import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
 
 @NgModule({
-  declarations: [HomeComponent, ProductDetailComponent,HeaderComponent,FooterComponent,SubscribeComponent],
+  declarations: [HomeComponent, ProductDetailComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    FormsModule
+    FormsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatInputModule,
+    ReactiveFormsModule
   ]
   
 })

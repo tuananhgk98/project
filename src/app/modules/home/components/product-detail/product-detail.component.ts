@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../service/home.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,7 +10,8 @@ import { HomeService } from '../../service/home.service';
 export class ProductDetailComponent implements OnInit {
 
   constructor(
-    private HomeService: HomeService
+    private HomeService: HomeService,
+    private router: Router
   ) { }
 
   productId: any;
@@ -58,14 +60,49 @@ export class ProductDetailComponent implements OnInit {
         return i.id == data.id;
       });
       if (index !== -1) {
-        this.cartArray[index].quantity += this.qty;
-        localStorage.setItem('cart', JSON.stringify(this.cartArray));
+
+        if (this.cartArray[index].quantity == this.product.quantity) {
+          alert(`you only can bought ${this.product.name} up to ${this.product.quantity}, you have bought ${this.cartArray[index].quantity}`);
+        }
+        else {
+          this.cartArray[index].quantity += this.qty;
+          localStorage.setItem('cart', JSON.stringify(this.cartArray));
+          alert('Buy successfully!!');
+          this.router.navigate(['/cart']);
+        }
+
       }
       else {
         this.cartArray.push(data);
         localStorage.setItem('cart', JSON.stringify(this.cartArray));
+        alert('Buy successfully!!');
+        this.router.navigate(['/cart']);
       }
     }
+
+
+  }
+
+  updateQty() {
+
+    let dataProduct = {
+      id: this.product._id,
+    };
+    let Cart = JSON.parse(localStorage.getItem('cart'));
+
+    this.HomeService.getProductByid(this.product._id, dataProduct).subscribe(res => {
+      let index = Cart.findIndex(function (i) {
+        return i.id == JSON.parse(JSON.stringify(res)).data._id;
+      });
+      if (this.qty > Cart[index].quantity) {
+        alert(`You only can only buy ${JSON.parse(JSON.stringify(res)).data.name} up to ${JSON.parse(JSON.stringify(res)).data.quantity}, 
+you have bought ${Cart[index].quantity}`);
+
+        if (index !== -1) {
+          this.qty = this.product.quantity - Cart[index].quantity;
+        }
+      }
+    });
 
   }
 

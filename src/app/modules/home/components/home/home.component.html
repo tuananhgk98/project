@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -44,16 +44,16 @@
                 <h2>Our Featured Cakes</h2>
                 <h5> Seldolor sit amet consect etur</h5>
             </div>
-            <div class="cake_feature_slider owl-carousel" *ngFor="let item of products" style="display: inline-block">
+            <div class="cake_feature_slider owl-carousel" *ngFor="let item of products" style="display: inline-block;padding-right: 2.6em">
                 <div class="item">
                     <div class="cake_feature_item">
                         <div class="cake_img" routerLink="/{{item._id}}">
-                            <img src="/assets/images/cake-feature/c-feature-1.jpg" alt="">
+                            <img src="{{item.imageString}}" alt="" style="width: 250px;height:150px">
                         </div>
                         <div class="cake_text">
                             <h4>{{item.price}}</h4>
                             <h3>{{item.name}}</h3>
-                            <button class="btn btn-primary pest_btn" (click)="addToCart(item._id,item.name,item.imageURL,item.price)">Add to cart</button>
+                            <button class="btn btn-primary pest_btn" (click)="addToCart(item._id,item.name,item.imageString,item.price)">Add to cart</button>
                         </div>
                     </div>
                 </div>
@@ -253,6 +253,3 @@
     </div>
 </section>
 
-<app-subscribe></app-subscribe>
-
-<app-footer></app-footer>

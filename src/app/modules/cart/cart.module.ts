@@ -11,7 +11,7 @@ import { SubscribeComponent } from '../../components/commons/subscribe/subscribe
 
 
 @NgModule({
-  declarations: [CartComponent, HeaderComponent, FooterComponent,SubscribeComponent],
+  declarations: [CartComponent],
   imports: [
     CommonModule,
     CartRoutingModule,

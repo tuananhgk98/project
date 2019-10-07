@@ -31,12 +31,14 @@ app.use(function (req, res, next) {
 var productRoute = require('./routes/product.route');
 var mailRoute = require('./routes/mail.route');
 var subscribeRoute = require('./routes/subscribe.route');
+var discountRoute = require('./routes/discount.route');
 
 
 
 app.use('/product',productRoute);
 app.use('/mail', mailRoute);
 app.use('/subscribe',subscribeRoute);
+app.use('/discount',discountRoute);
 
 
 app.get('/test', function (req, res) {

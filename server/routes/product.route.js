@@ -3,9 +3,13 @@ var router = express.Router();
 var productController = require('../controllers/product.controller');
 var cors = require('cors');
 router.options('/', cors());
-
+router.post('/update/:id', cors(), productController.updateProduct);
+router.post('/remove', cors(), productController.deleteProduct);
+router.post('/add', cors(), productController.createProduct);
 router.get('/list', cors(), productController.getAllProduct);
 router.post('/:id', cors(), productController.getOneProduct);
+
+
 
 module.exports = router;
 
