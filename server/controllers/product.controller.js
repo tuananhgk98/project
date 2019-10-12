@@ -102,6 +102,23 @@ module.exports.getOneProduct = function (req, res) {
 
 };
 
+module.exports.increeViewCont = function(req, res){
+   
+    let data = {
+        "viewCount" : req.body.viewCount
+    };
+    products.findOneAndUpdate({ _id: req.params.id }, data, { new: true }).then(pro => {
+
+        res.status(200).send({
+            OK: true,
+            Message: "Update successfuly!!",
+            data: pro
+        });
+
+    });
+
+};
+
 
 
 

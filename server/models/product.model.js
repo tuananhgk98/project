@@ -11,6 +11,7 @@ var products = new Schema({
     quantity: Number,
     createOn: String,
     updateOn: String,
+    "viewCount" : Number,
     imageString: String,
     status : Number
 

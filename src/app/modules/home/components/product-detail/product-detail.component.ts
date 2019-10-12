@@ -25,6 +25,16 @@ export class ProductDetailComponent implements OnInit {
     this.cartArray = JSON.parse(this.cart);
   }
 
+  increeViewCount() {
+    let data = {
+      viewCount: this.product.viewCount+1
+    };
+    console.log(data);
+    this.HomeService.increeViewCount(this.product._id, data).subscribe(res => {
+      console.log(res);
+    });
+  }
+
   getProductByid() {
     let data = {
       id: this.productId
@@ -34,6 +44,7 @@ export class ProductDetailComponent implements OnInit {
       res => {
         this.product = JSON.parse(JSON.stringify(res)).data;
         console.log(this.product);
+        this.increeViewCount();
       }
     );
   }
@@ -110,6 +121,8 @@ you have bought ${Cart[index].quantity}`);
     this.productId = window.location.href.split('/').pop();
     this.getProductByid();
     this.getCartInfo();
+
+
 
   }
 

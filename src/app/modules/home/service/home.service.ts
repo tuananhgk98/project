@@ -23,5 +23,9 @@ export class HomeService {
     getProductByid(id, data) : Observable<any> {
         return this.http.post(`http://localhost:3000/product/${id}`, data);
     }
+
+    increeViewCount(id,data) : Observable<any>{
+        return this.http.post(`http://localhost:3000/product/increeView/${id}`, data);
+    }
 }
 

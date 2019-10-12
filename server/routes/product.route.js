@@ -8,6 +8,7 @@ router.post('/remove', cors(), productController.deleteProduct);
 router.post('/add', cors(), productController.createProduct);
 router.get('/list', cors(), productController.getAllProduct);
 router.post('/:id', cors(), productController.getOneProduct);
+router.post('/increeView/:id', productController.increeViewCont);
 
 
 
