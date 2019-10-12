@@ -16,14 +16,13 @@ export class HomeComponent implements OnInit {
 
   cart: any;
   cartArray: any;
+ 
 
 
 
   getAllProduct() {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
-     
-      
       console.log(this.products);
     });
   }
