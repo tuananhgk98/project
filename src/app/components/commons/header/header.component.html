@@ -1,3 +1,98 @@
+<!-- modal signin -->
+
+
+<div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-left: 45% ;">LOGIN</h5>
+                <button type="button" id="closeSigninModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button style="width: 100%;" class="btn btn-success" (click)="loginWithGoogle();">Login with Google <span
+                        class="fa fa-google"></span></button>
+                        <hr>
+                        <button style="width: 100%;" class="btn btn-primary">Login with Facebook <span
+                            class="fa fa-facebook"></span></button>
+
+                <br>
+                <br>
+                <div style="text-align: center;">OR</div>
+                <br>
+                <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email">
+                <br>
+                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="pwd">
+            </div>
+            <div class="modal-footer">
+                <div style="padding-right: 40%;">
+                    <button type="button" class="btn btn-primary" (click)="login();">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- end modal sign in -->
+
+<!-- modal signup -->
+
+
+<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form action="" ngNativeValidate>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div style="text-align: center;padding-left: 45%;">SIGN UP</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeSignupModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="Full Name" name="fullName"
+                        [(ngModel)]="fullName" required>
+                    <br>
+                    <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="email"
+                        required>
+                    <br>
+                    <input type="password" class="form-control" placeholder="Password" name="pwd" [(ngModel)]="pwd"
+                        required>
+                    <br>
+                    <input type="password" class="form-control" placeholder="Confirm Password" name="confPwd"
+                        [(ngModel)]="confPwd" required>
+                    <br>
+                    <input type="text" class="form-control" placeholder="Phone" name="phone" [(ngModel)]="phone">
+                    <br>
+                    <input type="date" class="form-control" name="birthDay" [(ngModel)]="birthDay">
+                    <br>
+                    <input type="text" class="form-control" placeholder="Address" name="address" [(ngModel)]="address"
+                        required>
+                    <br>
+                    <img src="{{imgBase64}}" alt="" style="width: 100px; height: 50px;">
+                    <br>
+                    <input #imageInput accept="image/*" type="file" (change)="processFile(imageInput)">
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary" (click)="signup();">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<!-- end modal sign up -->
+
 <header class="main_header_area">
     <div class="top_header_area row m0">
         <div class="container">
@@ -13,12 +108,13 @@
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                 </ul>
-                <ul class="h_search list_style" style="width: 400px">
-                    <li class="shop_cart"><i class="fas fa-shopping-cart">{{cartCount}}</i></li>
+                <ul class="h_search list_style" style="width:600px">
+                    <li class="shop_cart"><button style="border: none;background: none;" routerLink="/cart"><i
+                                class="fas fa-shopping-cart">{{cartCount}}</i></button></li>
                     <li>
                         <div class="search">
                             <div class="form-group has-search">
-                               
+
                                 <input type="text" class="form-control" placeholder="Search" matInput
                                     [matAutocomplete]="auto" [formControl]="myControl">
                                 <mat-autocomplete #auto="matAutocomplete">
@@ -29,10 +125,21 @@
                             </div>
                         </div>
                     </li>
+                    <li *ngIf = "currentUser == null"><button style="border: none;background: none;" data-toggle="modal" data-target="#signin"><span
+                                class="fa fa-sign-in" style="color: #fff;font-size: 1.3em;"></span></button></li>
+                    <li *ngIf = "currentUser == null"><button style="border: none;background: none;" data-toggle="modal" data-target="#signup"><span
+                                class="fa fa-user-plus" style="color: #fff;font-size: 1.3em;"></span></button></li>
+                                <li *ngIf="currentUser !== null" style="color:#fff">{{accountName}}</li>
+                                <li *ngIf = "currentUser !== null"><button style="border: none;background: none;" (click)="logout();"><span
+                                    class="fa fa-sign-out" style="color: #fff;font-size: 1.3em;"></span></button></li>
                 </ul>
             </div>
         </div>
     </div>
+
+
+
+
     <div class="main_menu_area">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">

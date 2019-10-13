@@ -3,6 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpInterceptor } from '@angular/common/http';
+import {NgxSocialLoginModule} from 'ng8-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,9 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SubscribeComponent
+    SubscribeComponent,
+
+    
 
 
   ],
@@ -34,7 +37,19 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSocialLoginModule.init(
+      {
+          google: {
+              client_id: '980432911492-mt13je8t7hoqmie1mdilur17ole447m1.apps.googleusercontent.com'
+          },
+          // facebook: {
+          //     initOptions: {
+          //         appId: 'YOUR_APP_ID'
+          //     }
+          // }
+      }
+  )
   ],
   exports: [
     HeaderComponent,
