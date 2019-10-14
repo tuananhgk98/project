@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from './cart.service';
 import { HomeService } from '../home/service/home.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-cart',
@@ -9,8 +10,10 @@ import { HomeService } from '../home/service/home.service';
 })
 export class CartComponent implements OnInit {
 
+
     constructor(private service: CartService,
-        private HomeService: HomeService) { }
+        private HomeService: HomeService,
+        private router : Router) { }
 
     cart: any[];
     total: number;
@@ -64,6 +67,8 @@ export class CartComponent implements OnInit {
         this.cart.splice(index, 1);
         localStorage.setItem('cart', JSON.stringify(this.cart));
         this.getCartInfo();
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate([`/cart`]));
     }
 
     findCode() {

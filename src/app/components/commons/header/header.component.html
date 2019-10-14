@@ -109,10 +109,10 @@
                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                 </ul>
                 <ul class="h_search list_style" style="width:600px">
-                    <li class="shop_cart"><button style="border: none;background: none;" routerLink="/cart"><i
+                    <li class="shop_cart" (click)="ridirectToCart();"><button style="border: none;background: none;"><i
                                 class="fas fa-shopping-cart">{{cartCount}}</i></button></li>
                     <li>
-                        <div class="search">
+                        <!-- <div class="search">
                             <div class="form-group has-search">
 
                                 <input type="text" class="form-control" placeholder="Search" matInput
@@ -123,7 +123,7 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </div>
-                        </div>
+                        </div> -->
                     </li>
                     <li *ngIf = "currentUser == null"><button style="border: none;background: none;" data-toggle="modal" data-target="#signin"><span
                                 class="fa fa-sign-in" style="color: #fff;font-size: 1.3em;"></span></button></li>
@@ -143,8 +143,8 @@
     <div class="main_menu_area">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" routerLink="/">
-                    <img src="/assets/images/logo.png" alt="">
+                <a class="navbar-brand">
+                    <img src="/assets/images/logo.png" alt="" (click)="ridirectToHome();">
                     <img src="/assets/images/logo-2.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -160,14 +160,14 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="dropdown submenu active">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="true" aria-expanded="false">Home</a>
-                            <ul class="dropdown-menu">
+                                aria-haspopup="true" aria-expanded="false" (click)="ridirectToHome();">Home</a>
+                            <!-- <ul class="dropdown-menu">
                                 <li><a href="index.html">Home 1</a></li>
                                 <li><a href="index-2.html">Home 2</a></li>
                                 <li><a href="index-3.html">Home 3</a></li>
                                 <li><a href="index-4.html">Home 4</a></li>
                                 <li><a href="index-5.html">Home 5</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <li><a href="cake.html">Our Cakes</a></li>
                         <li><a href="menu.html">Menu</a></li>

@@ -69,6 +69,8 @@ export class HeaderComponent implements OnInit {
     this.UserService.getAllEmail().subscribe(res => {
       this.listEmail = res.data;
       console.log(this.listEmail);
+      this.currentUser = JSON.parse(localStorage.getItem('user'));
+      this.accountName = this.currentUser.fullName;
     });
   }
 
@@ -102,6 +104,8 @@ export class HeaderComponent implements OnInit {
       console.log(res);
       if (res.OK == true) {
         alert('sign up successful');
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.accountName = this.currentUser.fullName;
         document.getElementById('closeSignupModal').click();
       }
       else {
@@ -124,10 +128,11 @@ export class HeaderComponent implements OnInit {
         this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(res => {
           localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
           // alert('login successful!');
+        this.currentUser = user.name;
           document.getElementById('closeSigninModal').click();
-          // this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-          //   this.router.navigate([`/`]));
-          window.location.reload();
+          this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+            this.router.navigate([`/`]));
+          // window.location.reload();
         });
       }
       else {
@@ -143,6 +148,8 @@ export class HeaderComponent implements OnInit {
 
               if (res.OK == true) {
                 localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
+             
+                this.accountName = this.currentUser.fullName;
                 alert(res.Message);
               }
               else {
@@ -153,9 +160,9 @@ export class HeaderComponent implements OnInit {
             });
 
             document.getElementById('closeSigninModal').click();
-            // this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-            //   this.router.navigate([`/`]));
-            window.location.reload();
+            this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+              this.router.navigate([`/`]));
+            // window.location.reload();
           }
         });
 
@@ -174,10 +181,12 @@ export class HeaderComponent implements OnInit {
       if (res.OK == true) {
         localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
         // alert('successful');
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.accountName = this.currentUser.fullName;
         document.getElementById('closeSigninModal').click();
-        // this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-        //   this.router.navigate([`/`]));
-        window.location.reload();
+        this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+          this.router.navigate([`/`]));
+        // window.location.reload();
       }
       else {
         alert(res.Message);
@@ -189,16 +198,19 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+
     this.getAllEmail();
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     this.accountName = this.currentUser.fullName;
-    this.getAllProduct();
-    this.filterProduct = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
     this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+
+    // this.getAllProduct();
+    // this.filterProduct = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value))
+    // );
+
 
   }
 
@@ -206,13 +218,23 @@ export class HeaderComponent implements OnInit {
     let cf = confirm('are you sure to logout??');
     if (cf == true) {
       localStorage.removeItem('user');
-      window.location.reload();
+      this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+        this.router.navigate([`/`]));
+      // window.location.reload();
     }
 
   }
 
+  ridirectToHome() {
+    this.router.navigate(['/']);
+  }
+
   ridirectToDetail(id) {
     this.router.navigate([`/${id}`]);
+  }
+
+  ridirectToCart() {
+    this.router.navigate(['/cart']);
   }
 
 }

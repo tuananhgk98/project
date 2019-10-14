@@ -27,7 +27,7 @@ export class ProductDetailComponent implements OnInit {
 
   increeViewCount() {
     let data = {
-      viewCount: this.product.viewCount+1
+      viewCount: this.product.viewCount + 1
     };
     console.log(data);
     this.HomeService.increeViewCount(this.product._id, data).subscribe(res => {

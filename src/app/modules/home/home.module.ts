@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { CommonsModule } from '../../components/commons/commons.module';
 
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
@@ -12,7 +13,12 @@ import { SubscribeComponent } from '../../components/commons/subscribe/subscribe
 import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
 
 @NgModule({
-  declarations: [HomeComponent, ProductDetailComponent],
+  declarations: [HomeComponent,
+     ProductDetailComponent,
+    //  HeaderComponent,
+    //  FooterComponent,
+    //  SubscribeComponent
+    ],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -22,7 +28,9 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonsModule
+
   ]
   
 })
