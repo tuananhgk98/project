@@ -69,8 +69,7 @@ export class HeaderComponent implements OnInit {
     this.UserService.getAllEmail().subscribe(res => {
       this.listEmail = res.data;
       console.log(this.listEmail);
-      this.currentUser = JSON.parse(localStorage.getItem('user'));
-      this.accountName = this.currentUser.fullName;
+
     });
   }
 
@@ -100,13 +99,13 @@ export class HeaderComponent implements OnInit {
     data.avatar = this.imgBase64;
     data.createOn = date.toString();
     console.log(data);
-    this.UserService.signup(data).subscribe(res => {
+    this.UserService.signup(data).subscribe(async res => {
       console.log(res);
       if (res.OK == true) {
         alert('sign up successful');
-        this.currentUser = JSON.parse(localStorage.getItem('user'));
-        this.accountName = this.currentUser.fullName;
+
         document.getElementById('closeSignupModal').click();
+        await this.getInfo();
       }
       else {
         alert(res.Message);
@@ -125,11 +124,12 @@ export class HeaderComponent implements OnInit {
     this.socicalLogin.login(Provider.GOOGLE).subscribe(user => {
       console.log(user);
       if (this.listEmail.includes(user.email)) {
-        this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(res => {
+        this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
           localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
           // alert('login successful!');
-        this.currentUser = user.name;
+         
           document.getElementById('closeSigninModal').click();
+          await this.getInfo();
           this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
             this.router.navigate([`/`]));
           // window.location.reload();
@@ -148,7 +148,7 @@ export class HeaderComponent implements OnInit {
 
               if (res.OK == true) {
                 localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
-             
+
                 this.accountName = this.currentUser.fullName;
                 alert(res.Message);
               }
@@ -181,8 +181,7 @@ export class HeaderComponent implements OnInit {
       if (res.OK == true) {
         localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
         // alert('successful');
-        this.currentUser = JSON.parse(localStorage.getItem('user'));
-        this.accountName = this.currentUser.fullName;
+        this.getInfo();
         document.getElementById('closeSigninModal').click();
         this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
           this.router.navigate([`/`]));
@@ -197,13 +196,18 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-
-  async ngOnInit() {
-
-    this.getAllEmail();
+  getInfo() {
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     this.accountName = this.currentUser.fullName;
     this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+  }
+
+
+  ngOnInit() {
+
+    this.getAllEmail();
+    this.getInfo();
+
 
     // this.getAllProduct();
     // this.filterProduct = this.myControl.valueChanges.pipe(
