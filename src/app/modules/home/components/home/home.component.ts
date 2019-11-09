@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
 
   cart: any;
   cartArray: any;
- 
+
+  p: Number = 1;
+  count: Number = 5;
 
 
 
@@ -73,7 +75,7 @@ export class HomeComponent implements OnInit {
           if (this.cartArray[cartIndex].quantity >= currentProd.quantity) {
             alert(`you only bougth ${currentProd.name} up to ${currentProd.quantity}, you have bought ${this.cartArray[cartIndex].quantity} `);
           } else {
-    
+
           }
           this.cartArray[index].quantity = currentProd.quantity;
           localStorage.setItem('cart', JSON.stringify(this.cartArray));

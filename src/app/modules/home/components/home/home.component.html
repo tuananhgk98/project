@@ -44,7 +44,7 @@
                 <h2>Our Featured Cakes</h2>
                 <h5> Seldolor sit amet consect etur</h5>
             </div>
-            <div class="cake_feature_slider owl-carousel" *ngFor="let item of products" style="display: inline-block;padding-right: 2.6em">
+            <div class="cake_feature_slider owl-carousel" *ngFor="let item of products | paginate: { itemsPerPage: 4, currentPage: p }" style="display: inline-block;padding-right: 2.6em">
                 <div class="item">
                     <div class="cake_feature_item">
                         <div class="cake_img" routerLink="/{{item._id}}">
@@ -58,8 +58,11 @@
                         </div>
                     </div>
                 </div>
-               
+      
             </div>
+           <div style="text-align: center; padding-top: 5em;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+           </div>
         </div>
     </div>
 </section>

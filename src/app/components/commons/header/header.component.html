@@ -11,11 +11,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <button style="width: 100%;" class="btn btn-success" (click)="loginWithGoogle();">Login with Google <span
-                        class="fa fa-google"></span></button>
-                        <hr>
-                        <button style="width: 100%;" class="btn btn-primary">Login with Facebook <span
-                            class="fa fa-facebook"></span></button>
+                <button style="width: 100%;" class="btn btn-success" (click)="loginWithGoogle();">Login with Google
+                    <span class="fa fa-google"></span></button>
+                <hr>
+                <button style="width: 100%;" class="btn btn-primary">Login with Facebook <span
+                        class="fa fa-facebook"></span></button>
 
                 <br>
                 <br>
@@ -111,8 +111,19 @@
                 <ul class="h_search list_style" style="width:600px">
                     <li class="shop_cart" (click)="ridirectToCart();"><button style="border: none;background: none;"><i
                                 class="fas fa-shopping-cart">{{cartCount}}</i></button></li>
+
+                    <li *ngIf="currentUser == null"><button style="border: none;background: none;" data-toggle="modal"
+                            data-target="#signin"><span class="fa fa-sign-in"
+                                style="color: #fff;font-size: 1.3em;"></span></button></li>
+                    <li *ngIf="currentUser == null"><button style="border: none;background: none;" data-toggle="modal"
+                            data-target="#signup"><span class="fa fa-user-plus"
+                                style="color: #fff;font-size: 1.3em;"></span></button></li>
+                    <li *ngIf="currentUser !== null" style="color:#fff">{{accountName}}</li>
+                    <li *ngIf="currentUser !== null"><button style="border: none;background: none;"
+                            (click)="logout();"><span class="fa fa-sign-out"
+                                style="color: #fff;font-size: 1.3em;"></span></button></li>
                     <li>
-                        <!-- <div class="search">
+                        <div class="search">
                             <div class="form-group has-search">
 
                                 <input type="text" class="form-control" placeholder="Search" matInput
@@ -123,15 +134,8 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </div>
-                        </div> -->
+                        </div>
                     </li>
-                    <li *ngIf = "currentUser == null"><button style="border: none;background: none;" data-toggle="modal" data-target="#signin"><span
-                                class="fa fa-sign-in" style="color: #fff;font-size: 1.3em;"></span></button></li>
-                    <li *ngIf = "currentUser == null"><button style="border: none;background: none;" data-toggle="modal" data-target="#signup"><span
-                                class="fa fa-user-plus" style="color: #fff;font-size: 1.3em;"></span></button></li>
-                                <li *ngIf="currentUser !== null" style="color:#fff">{{accountName}}</li>
-                                <li *ngIf = "currentUser !== null"><button style="border: none;background: none;" (click)="logout();"><span
-                                    class="fa fa-sign-out" style="color: #fff;font-size: 1.3em;"></span></button></li>
                 </ul>
             </div>
         </div>

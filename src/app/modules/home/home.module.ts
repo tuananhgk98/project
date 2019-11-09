@@ -7,6 +7,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { CommonsModule } from '../../components/commons/commons.module';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
 import { SubscribeComponent } from '../../components/commons/subscribe/subscribe.component';
@@ -29,7 +31,8 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
     MatCheckboxModule,
     MatInputModule,
     ReactiveFormsModule,
-    CommonsModule
+    CommonsModule,
+    NgxPaginationModule
 
   ]
   

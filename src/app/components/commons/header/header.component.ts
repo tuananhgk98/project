@@ -180,12 +180,10 @@ export class HeaderComponent implements OnInit {
 
       if (res.OK == true) {
         localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
-        // alert('successful');
         this.getInfo();
         document.getElementById('closeSigninModal').click();
         this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
           this.router.navigate([`/`]));
-        // window.location.reload();
       }
       else {
         alert(res.Message);
@@ -209,11 +207,11 @@ export class HeaderComponent implements OnInit {
     this.getInfo();
 
 
-    // this.getAllProduct();
-    // this.filterProduct = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value))
-    // );
+    this.getAllProduct();
+    this.filterProduct = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
 
 
   }

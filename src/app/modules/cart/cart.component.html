@@ -13,7 +13,7 @@
 </section>
 
 <section class="cart_table_area p_100">
-    <div class="container">
+    <div class="container" *ngIf="cart !== null">
         <div class="table-responsive">
             <table class="table" style="text-align: center;">
                 <thead>
@@ -53,7 +53,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <button class="btn btn-success" style="width: 150px" href="#">Add To Cart</button>
+                            <button class="btn btn-danger" style="width: 150px" (click)="clearCart();">Delete all</button>
                         </td>
                     </tr>
                 </tbody>
@@ -72,11 +72,16 @@
                     <div class="total">
                         <h4>Total <span>{{this.total}}</span></h4>
                     </div>
-                    <div class="cart_footer">
-                        <button class="pest_btn" href="#">Proceed to Checkout</button>
+                    <div class="cart_footer" style="float: right;">
+                        <button class="btn btn-primary">Proceed to Checkout</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div *ngIf="cart == null" style="text-align: center;">
+    <p>You have no items in your shopping cart, <a routerLink="/">buy now?</a></p>
+    </div>
 </section>
+<app-subscribe></app-subscribe>
+<app-footer></app-footer>

@@ -13,7 +13,7 @@ export class CartComponent implements OnInit {
 
     constructor(private service: CartService,
         private HomeService: HomeService,
-        private router : Router) { }
+        private router: Router) { }
 
     cart: any[];
     total: number;
@@ -68,7 +68,7 @@ export class CartComponent implements OnInit {
         localStorage.setItem('cart', JSON.stringify(this.cart));
         this.getCartInfo();
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate([`/cart`]));
+            this.router.navigate([`/cart`]));
     }
 
     findCode() {
@@ -86,6 +86,15 @@ export class CartComponent implements OnInit {
             console.log(err);
             alert('Your code is not valid');
         })
+    }
+
+    clearCart() {
+        let cf = confirm('Are you sure you want to delete?');
+        if (cf == true) {
+            localStorage.removeItem('cart');
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                this.router.navigate([`/cart`]));
+        }
     }
 
     ngOnInit() {
