@@ -65,7 +65,12 @@ export class CartComponent implements OnInit {
         });
         console.log(index);
         this.cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(this.cart));
+        if(this.cart.length == 0){
+            localStorage.removeItem('cart');
+        }
+        else{
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+        }
         this.getCartInfo();
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate([`/cart`]));

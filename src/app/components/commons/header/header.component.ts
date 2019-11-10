@@ -68,12 +68,13 @@ export class HeaderComponent implements OnInit {
   getAllEmail() {
     this.UserService.getAllEmail().subscribe(res => {
       this.listEmail = res.data;
-      console.log(this.listEmail);
+      // console.log(this.listEmail);
 
     });
   }
 
   getAllProduct() {
+    console.log('123');
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
       console.log(this.products);
@@ -98,9 +99,9 @@ export class HeaderComponent implements OnInit {
     data.address = this.address;
     data.avatar = this.imgBase64;
     data.createOn = date.toString();
-    console.log(data);
+    // console.log(data);
     this.UserService.signup(data).subscribe(async res => {
-      console.log(res);
+      // console.log(res);
       if (res.OK == true) {
         alert('sign up successful');
 
@@ -208,12 +209,12 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.getAllProduct();
     this.getAllEmail();
     this.getInfo();
 
 
-    this.getAllProduct();
+
     this.filterProduct = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
