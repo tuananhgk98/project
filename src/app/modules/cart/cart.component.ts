@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
 
         this.HomeService.getProductByid(id, dataProduct).subscribe(res => {
             if (val > JSON.parse(JSON.stringify(res)).data.quantity) {
-                alert(`You only can only buy ${JSON.parse(JSON.stringify(res)).data.name} up to ${JSON.parse(JSON.stringify(res)).data.quantity}`);
+                alert(`You only can buy ${JSON.parse(JSON.stringify(res)).data.name} up to ${JSON.parse(JSON.stringify(res)).data.quantity}`);
                 let index = this.cart.findIndex(function (i) {
                     return i.id == id;
                 });
@@ -72,24 +72,32 @@ export class CartComponent implements OnInit {
     }
 
     findCode() {
-        let data = {
-            id: this.discountCode
-        };
-        console.log(data);
-        this.service.getCode(data).subscribe(res => {
-            if (JSON.parse(JSON.stringify(res)).OK == true) {
-                this.discount = JSON.parse(JSON.stringify(res)).data.discount;
-                this.total = this.total - (this.total * this.discount) / 100;
-                alert(`Use discount code successful, you get ${this.discount} percent off`);
-            }
-        }, err => {
-            console.log(err);
-            alert('Your code is not valid');
-        })
+        if (localStorage.getItem('user') == null) {
+            let cf = confirm(`This feature requires login, do you want to continue??
+            `);
+            if (cf == true) document.getElementById('toggleSigninModal').click();
+        }
+        else {
+            let data = {
+                id: this.discountCode
+            };
+            console.log(data);
+            this.service.getCode(data).subscribe(res => {
+                if (JSON.parse(JSON.stringify(res)).OK == true) {
+                    this.discount = JSON.parse(JSON.stringify(res)).data.discount;
+                    this.total = this.total - (this.total * this.discount) / 100;
+                    alert(`Use discount code successful, you get ${this.discount} percent off`);
+                }
+            }, err => {
+                console.log(err);
+                alert('Your code is not valid');
+            });
+        }
+
     }
 
     clearCart() {
-        let cf = confirm('Are you sure you want to delete?');
+        let cf = confirm('Are you sure you want to delete cart?');
         if (cf == true) {
             localStorage.removeItem('cart');
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

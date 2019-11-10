@@ -127,11 +127,13 @@ export class HeaderComponent implements OnInit {
         this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
           localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
           // alert('login successful!');
-         
+
           document.getElementById('closeSigninModal').click();
-          await this.getInfo();
-          this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-            this.router.navigate([`/`]));
+          this.getInfo();
+          await setTimeout(function () {
+            this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+              this.router.navigate([`/`]));
+          }, 600);
           // window.location.reload();
         });
       }
@@ -160,8 +162,10 @@ export class HeaderComponent implements OnInit {
             });
 
             document.getElementById('closeSigninModal').click();
-            this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-              this.router.navigate([`/`]));
+            setTimeout(function () {
+              this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+                this.router.navigate([`/`]));
+            }, 600);
             // window.location.reload();
           }
         });
@@ -182,8 +186,10 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
         this.getInfo();
         document.getElementById('closeSigninModal').click();
-        this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-          this.router.navigate([`/`]));
+        setTimeout(function () {
+          this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+            this.router.navigate([`/`]));
+        }, 600);
       }
       else {
         alert(res.Message);
