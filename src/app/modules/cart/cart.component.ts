@@ -25,6 +25,8 @@ export class CartComponent implements OnInit {
         this.cart = JSON.parse(localStorage.getItem('cart'));
 
         this.total = this.cart.map(i => i.price * i.quantity).reduce((a, b) => a + b, 0);
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate([`/cart`]));
     }
 
     updateQty(e) {
