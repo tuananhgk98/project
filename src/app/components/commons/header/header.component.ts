@@ -83,11 +83,7 @@ export class HeaderComponent implements OnInit {
     }, () => {
       this.filterProduct = this.myControl.valueChanges.pipe(
         startWith(''),
-<<<<<<< HEAD
         map(value => this._filter(value) )
-=======
-        map(value => this._filter(value))
->>>>>>> 82c2288ac7a1768063c42439188f2088dc75375b
       );
     });
   }
@@ -226,7 +222,6 @@ export class HeaderComponent implements OnInit {
       prod.name.toLowerCase().includes(filterValue));
     }
   ngOnInit() {
-<<<<<<< HEAD
     // this.getAllEmail();
     // this.getInfo();
     this.getAllProduct();
@@ -240,11 +235,6 @@ export class HeaderComponent implements OnInit {
     
    
 
-=======
-    this.getAllProduct();
-    this.getAllEmail();
-    this.getInfo();
->>>>>>> 82c2288ac7a1768063c42439188f2088dc75375b
 
   }
 
