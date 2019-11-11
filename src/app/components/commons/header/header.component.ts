@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
   filterProduct: any;
   cartCount: number = 0;
   selectedFile: ImageSnippet;
+  currentPage : string = '';
 
   listEmail: string[];
 
@@ -201,6 +202,9 @@ export class HeaderComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     this.accountName = this.currentUser.fullName;
     this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+    this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+    this.router.navigate([`/`]));
+    
   }
 
 
@@ -210,19 +214,12 @@ export class HeaderComponent implements OnInit {
       prod.name.toLowerCase().includes(filterValue));
     }
   ngOnInit() {
-    // this.getAllEmail();
-    // this.getInfo();
+    // this.currentPage = window.location.href.split('/')[1];
+    console.log(this.router.url);
     this.getAllProduct();
-
-    document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
-    document.getElementById('mat-autocomplete-0').style.position = 'absolute';
-    // document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
-    // document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
-    // document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
-
-    
+    this.getAllEmail();
+    this.getInfo();
    
-
 
   }
 

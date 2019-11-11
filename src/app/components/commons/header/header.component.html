@@ -129,13 +129,13 @@
                                       <input type="text" class="form-control" placeholder="Search" matInput [matAutocomplete]="auto"
                                         [formControl]="myControl">
 
-                                     <div class="test">
-                                            <mat-autocomplete #auto="matAutocomplete" id="test34">
+                                  
+                                            <mat-autocomplete #auto="matAutocomplete" style="visibility: visible;position: absolute; z-index: 999999;top: 2.7em;background: #f7f0f0;max-width: 14em;">
                                                     <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
-                                                      <p (click)="ridirectToProfile(product._id)">{{product.name}}</p>
+                                                      <p routerLink="/{{product._id}}">{{product.name}}</p>
                                                     </mat-option>
                                                   </mat-autocomplete>
-                                     </div>
+                                     
                                     </div>
                                   </div>
                         <!-- <div class="search">

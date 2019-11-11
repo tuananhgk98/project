@@ -17,25 +17,33 @@
     color: #aaa;
     font-size: 0.5em;
 }
-#mat-autocomplete-0{
+/* #mat-autocomplete-0{
    visibility: visible;
     position: absolute;
     z-index: 999999;
     right: 14em;
     /* float: right; */
-    top: 2.7em;
+    /* top: 2.7em;
     background: #f7f0f0;
     max-width: 14em;
-}
+} */ 
 
-
-.test #test34{
-    visibility: visible;
+::ng-deep .mat-autocomplete-panel{
+   min-width: 112px;
+    max-width: 240px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    visibility: hidden;
+    max-height: 50px;
     position: absolute;
-    z-index: 999999;
-    right: 14em;
-    /* float: right; */
-    top: 2.7em;
-    background: #f7f0f0;
-    max-width: 14em;
+    width: 100%;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  background-color: aliceblue;
+    z-index: 99999;
+    left: 410%;
+    top: 3em;
+    overflow-y:  scroll;
+   
 }
+
