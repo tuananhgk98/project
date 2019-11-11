@@ -132,10 +132,10 @@ export class HeaderComponent implements OnInit {
 
   loginWithGoogle(): void {
     this.socicalLogin.login(Provider.GOOGLE).subscribe(user => {
-      console.log(user);
+
       if (this.listEmail.includes(user.email)) {
         this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
-          localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
+          localStorage.setItem('user', JSON.stringify(res.data));
           // alert('login successful!');
 
           document.getElementById('closeSigninModal').click();
@@ -157,13 +157,22 @@ export class HeaderComponent implements OnInit {
         this.UserService.signup(data).subscribe(async res => {
           if (res.OK == true) {
 
-            this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(res => {
+            this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
 
               if (res.OK == true) {
                 localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
 
                 this.accountName = this.currentUser.fullName;
                 alert(res.Message);
+                document.getElementById('closeSigninModal').click();
+
+                this.currentUser = await JSON.parse(localStorage.getItem('user'));
+                this.accountName = await this.currentUser.fullName;
+                this.cartCount = await JSON.parse(localStorage.getItem('cart')).length;
+                this.ngZone.run(() => {
+                  this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+                    this.router.navigate([`/`]));
+                });
               }
               else {
                 alert(res.Message);
@@ -185,6 +194,7 @@ export class HeaderComponent implements OnInit {
 
       };
     });
+
   }
 
 
