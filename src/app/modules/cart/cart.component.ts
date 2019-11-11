@@ -60,15 +60,21 @@ export class CartComponent implements OnInit {
     }
 
     removeItem(id) {
-        let index = this.cart.findIndex(function (i) {
-            return i.id == id;
-        });
-        console.log(index);
-        this.cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(this.cart));
-        this.getCartInfo();
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        if (JSON.parse(localStorage.getItem('cart')).length == 1) {
+            localStorage.removeItem('cart');
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate([`/cart`]));
+        } else {
+            let index = this.cart.findIndex(function (i) {
+                return i.id == id;
+            });
+            console.log(index);
+            this.cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            this.getCartInfo();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                this.router.navigate([`/cart`]));
+        }
     }
 
     findCode() {
