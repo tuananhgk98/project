@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
   filterProduct: any;
   cartCount: number = 0;
   selectedFile: ImageSnippet;
+  currentPage : string = '';
 
   listEmail: string[];
 
