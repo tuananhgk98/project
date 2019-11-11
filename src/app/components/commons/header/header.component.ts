@@ -78,6 +78,13 @@ export class HeaderComponent implements OnInit {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
       console.log(this.products);
+    }, err => {
+
+    }, () => {
+      this.filterProduct = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
     });
   }
 
@@ -215,10 +222,7 @@ export class HeaderComponent implements OnInit {
 
 
 
-    this.filterProduct = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+
 
 
   }
