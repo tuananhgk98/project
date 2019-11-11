@@ -260,6 +260,11 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  regisNow(){
+    document.getElementById('closeSigninModal').click();
+    document.getElementById('toggleSignupModal').click();
+  }
+
   ridirectToHome() {
     this.router.navigate(['/']);
   }

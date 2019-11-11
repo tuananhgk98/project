@@ -103,6 +103,12 @@ export class CartComponent implements OnInit {
         }
     }
 
+    payment(){
+        if(!localStorage.getItem('user')){
+            document.getElementById('toggleSigninModal').click();
+        }
+    }
+
     ngOnInit() {
         this.getCartInfo();
     }

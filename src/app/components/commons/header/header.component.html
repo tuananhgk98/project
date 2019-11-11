@@ -11,24 +11,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <button style="width: 100%;" class="btn btn-success" (click)="loginWithGoogle();">Login with Google
-                    <span class="fa fa-google"></span></button>
-                <hr>
-                <button style="width: 100%;" class="btn btn-primary">Login with Facebook <span
-                        class="fa fa-facebook"></span></button>
+                    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email">
+                    <br>
+                    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="pwd">
+            <div style="float: right;">
+            <button (click)="regisNow();" style="background: none; border: none; color: blue;">Register Now</button></div>
 
                 <br>
+        
                 <br>
-                <div style="text-align: center;">OR</div>
-                <br>
-                <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email">
-                <br>
-                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="pwd">
+                <button style="width: 100%;" class="btn btn-success" (click)="loginWithGoogle();">Login with Google
+                        <span class="fa fa-google"></span></button>
+                    <!-- <hr>
+                    <button style="width: 100%;" class="btn btn-primary">Login with Facebook <span
+                            class="fa fa-facebook"></span></button> -->
+              
             </div>
             <div class="modal-footer">
                 <div style="padding-right: 40%;">
                     <button type="button" class="btn btn-primary" (click)="login();">Login</button>
                 </div>
+                <!-- <div style="text-align: center;">
+                <a (click)="regisNow();">
+                    Do not have an account? Register now</a></div> -->
             </div>
         </div>
     </div>
@@ -113,11 +118,14 @@
                                 class="fas fa-shopping-cart">{{cartCount}}</i></button></li>
 
                     <li *ngIf="currentUser == null"><button style="border: none;background: none;" data-toggle="modal"
-                            data-target="#signin"><span class="fa fa-sign-in"
+                            data-target="#signin" id="toggleSigninModal"><span class="fa fa-sign-in"
                                 style="color: #fff;font-size: 1.3em;"></span></button></li>
                     <li *ngIf="currentUser == null"><button style="border: none;background: none;" data-toggle="modal"
-                            data-target="#signup"><span class="fa fa-user-plus"
+                            data-target="#signup" id="toggleSignupModal"><span class="fa fa-user-plus"
                                 style="color: #fff;font-size: 1.3em;"></span></button></li>
+                                <li *ngIf="currentUser !== null">
+                                    <img src="{{currentUser.avatar}}" alt="" style="width: 30px;height: 30px; border-radius: 50%;">
+                                </li>
                     <li *ngIf="currentUser !== null" style="color:#fff">{{accountName}}</li>
                     <li *ngIf="currentUser !== null"><button style="border: none;background: none;"
                             (click)="logout();"><span class="fa fa-sign-out"
