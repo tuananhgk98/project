@@ -56,11 +56,6 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
   ),
 
   ],
-  // exports: [
-  //   HeaderComponent,
-  //   FooterComponent,
-  //   SubscribeComponent
-  // ],
   providers: [],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

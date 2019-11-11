@@ -68,12 +68,13 @@ export class HeaderComponent implements OnInit {
   getAllEmail() {
     this.UserService.getAllEmail().subscribe(res => {
       this.listEmail = res.data;
-      console.log(this.listEmail);
+      // console.log(this.listEmail);
 
     });
   }
 
   getAllProduct() {
+    console.log('123');
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
       console.log(this.products);
@@ -82,7 +83,11 @@ export class HeaderComponent implements OnInit {
     }, () => {
       this.filterProduct = this.myControl.valueChanges.pipe(
         startWith(''),
+<<<<<<< HEAD
         map(value => this._filter(value) )
+=======
+        map(value => this._filter(value))
+>>>>>>> 82c2288ac7a1768063c42439188f2088dc75375b
       );
     });
   }
@@ -101,9 +106,9 @@ export class HeaderComponent implements OnInit {
     data.address = this.address;
     data.avatar = this.imgBase64;
     data.createOn = date.toString();
-    console.log(data);
+    // console.log(data);
     this.UserService.signup(data).subscribe(async res => {
-      console.log(res);
+      // console.log(res);
       if (res.OK == true) {
         alert('sign up successful');
 
@@ -125,17 +130,26 @@ export class HeaderComponent implements OnInit {
 
   loginWithGoogle(): void {
     this.socicalLogin.login(Provider.GOOGLE).subscribe(user => {
-      console.log(user);
+     
       if (this.listEmail.includes(user.email)) {
         this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
           localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
           // alert('login successful!');
-         
+
           document.getElementById('closeSigninModal').click();
-          await this.getInfo();
-          this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-            this.router.navigate([`/`]));
-          // window.location.reload();
+          this.getInfo();
+          // this.currentUser = JSON.parse(localStorage.getItem('user'));
+          // this.accountName = this.currentUser.fullName;
+          // this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+        
+          
+       
+          // window.location.reload();  
+        }, err => {
+
+        }, () => {
+          this.router.navigateByUrl('/abc', { skipLocationChange: true }).then(() =>
+          this.router.navigate([`/${window.location.href.split('/')[1]}`]));
         });
       }
       else {
@@ -160,12 +174,10 @@ export class HeaderComponent implements OnInit {
               }
             }, err => {
               alert(err.statusText);
+            }, () => {
+              document.getElementById('closeSigninModal').click();
+              this.getInfo();
             });
-
-            document.getElementById('closeSigninModal').click();
-            this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-              this.router.navigate([`/`]));
-            // window.location.reload();
           }
         });
 
@@ -185,8 +197,10 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
         this.getInfo();
         document.getElementById('closeSigninModal').click();
-        this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-          this.router.navigate([`/`]));
+        setTimeout(function () {
+          this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+            this.router.navigate([`/`]));
+        }, 600);
       }
       else {
         alert(res.Message);
@@ -201,6 +215,8 @@ export class HeaderComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     this.accountName = this.currentUser.fullName;
     this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+    this.router.navigateByUrl('/abc', { skipLocationChange: true }).then(() =>
+    this.router.navigate([`/${window.location.href.split('/')[1]}`]));
   }
 
 
@@ -210,6 +226,7 @@ export class HeaderComponent implements OnInit {
       prod.name.toLowerCase().includes(filterValue));
     }
   ngOnInit() {
+<<<<<<< HEAD
     // this.getAllEmail();
     // this.getInfo();
     this.getAllProduct();
@@ -223,6 +240,11 @@ export class HeaderComponent implements OnInit {
     
    
 
+=======
+    this.getAllProduct();
+    this.getAllEmail();
+    this.getInfo();
+>>>>>>> 82c2288ac7a1768063c42439188f2088dc75375b
 
   }
 
@@ -230,8 +252,8 @@ export class HeaderComponent implements OnInit {
     let cf = confirm('are you sure to logout??');
     if (cf == true) {
       localStorage.removeItem('user');
-      this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
-        this.router.navigate([`/`]));
+      this.router.navigateByUrl('/abc', { skipLocationChange: true }).then(() =>
+        this.router.navigate([`/${window.location.href.split('/')[1]}`]));
       // window.location.reload();
     }
 
