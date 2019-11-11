@@ -222,25 +222,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-<<<<<<< HEAD
     this.getAllProduct();
     this.getAllEmail();
     this.getInfo();
-
-
-
-
-=======
-    this.filterProduct = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-    this.getAllEmail();
-    this.getInfo();
-    this.getAllProduct();
->>>>>>> 36f626e0eedb08a67683b2f94055b5afa65b6410
-
-  
 
   }
 
