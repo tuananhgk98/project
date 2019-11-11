@@ -123,18 +123,33 @@
                             (click)="logout();"><span class="fa fa-sign-out"
                                 style="color: #fff;font-size: 1.3em;"></span></button></li>
                     <li>
-                        <div class="search">
+                            <div class="search" style="position: relative;">
+                                    <div class="form-group has-search">
+                                      <span class="fa fa-search form-control-feedback"></span>
+                                      <input type="text" class="form-control" placeholder="Search" matInput [matAutocomplete]="auto"
+                                        [formControl]="myControl">
+
+                                     <div class="test">
+                                            <mat-autocomplete #auto="matAutocomplete" id="test34">
+                                                    <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
+                                                      <p (click)="ridirectToProfile(product._id)">{{product.name}}</p>
+                                                    </mat-option>
+                                                  </mat-autocomplete>
+                                     </div>
+                                    </div>
+                                  </div>
+                        <!-- <div class="search">
                             <div class="form-group has-search">
 
                                 <input type="text" class="form-control" placeholder="Search" matInput
                                     [matAutocomplete]="auto" [formControl]="myControl">
                                 <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
-                                        <p (click)="ridirectToDetail(product._id)">{{product.name}}</p>
+                                    <mat-option style="position: relative;" *ngFor="let product of filterProduct | async " [value]="product.name">
+                                        <p style="position: absolute; height: 16em;" (click)="ridirectToDetail(product._id)">{{product.name}}</p>
                                     </mat-option>
                                 </mat-autocomplete>
                             </div>
-                        </div>
+                        </div> -->
                     </li>
                 </ul>
             </div>

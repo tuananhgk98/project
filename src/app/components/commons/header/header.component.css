@@ -1,4 +1,5 @@
 
+
 .has-search .form-control {
     padding-left: 2.375rem;
    
@@ -15,4 +16,26 @@
     pointer-events: none;
     color: #aaa;
     font-size: 0.5em;
+}
+#mat-autocomplete-0{
+   visibility: visible;
+    position: absolute;
+    z-index: 999999;
+    right: 14em;
+    /* float: right; */
+    top: 2.7em;
+    background: #f7f0f0;
+    max-width: 14em;
+}
+
+
+.test #test34{
+    visibility: visible;
+    position: absolute;
+    z-index: 999999;
+    right: 14em;
+    /* float: right; */
+    top: 2.7em;
+    background: #f7f0f0;
+    max-width: 14em;
 }

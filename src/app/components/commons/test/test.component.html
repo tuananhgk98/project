@@ -1,0 +1,12 @@
+<div class="search">
+    <div class="form-group has-search">
+
+        <input type="text" class="form-control" placeholder="Search" matInput
+            [matAutocomplete]="auto" [formControl]="myControl">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
+                <p (click)="ridirectToDetail(product._id)">{{product.name}}</p>
+            </mat-option>
+        </mat-autocomplete>
+    </div>
+</div>

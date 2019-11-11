@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
 
   products: any[];
   myControl = new FormControl();
-  filterProduct: Observable<string[]>;
+  filterProduct: any;
   cartCount: number = 0;
   selectedFile: ImageSnippet;
 
@@ -77,14 +77,17 @@ export class HeaderComponent implements OnInit {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
       console.log(this.products);
+    }, err => {
+
+    }, () => {
+      this.filterProduct = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value) )
+      );
     });
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.products.filter(prod =>
-      prod.name.toLowerCase().includes(filterValue));
-  }
+ 
 
 
   signup() {
@@ -201,17 +204,24 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.products.filter(prod =>
+      prod.name.toLowerCase().includes(filterValue));
+    }
   ngOnInit() {
-
-    this.getAllEmail();
-    this.getInfo();
-
-
+    // this.getAllEmail();
+    // this.getInfo();
     this.getAllProduct();
-    this.filterProduct = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+
+    document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
+    document.getElementById('mat-autocomplete-0').style.position = 'absolute';
+    // document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
+    // document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
+    // document.getElementById('mat-autocomplete-0').style.visibility = 'visible';
+
+    
+   
 
 
   }
