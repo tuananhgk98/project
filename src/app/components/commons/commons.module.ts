@@ -7,6 +7,7 @@ import { FooterComponent } from '../../components/commons/footer/footer.componen
 import { SubscribeComponent } from '../../components/commons/subscribe/subscribe.component';
 
 import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
+import { TestComponent } from './test/test.component';
 
 
 
@@ -15,7 +16,8 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
   declarations: [
     HeaderComponent,
     FooterComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    TestComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
   exports: [
     HeaderComponent,
     FooterComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    TestComponent
   ],
   providers: [],
 

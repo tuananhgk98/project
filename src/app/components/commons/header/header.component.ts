@@ -32,9 +32,10 @@ export class HeaderComponent implements OnInit {
 
   products: any[];
   myControl = new FormControl();
-  filterProduct: Observable<string[]>;
+  filterProduct: any;
   cartCount: number = 0;
   selectedFile: ImageSnippet;
+  currentPage: string = '';
 
   listEmail: string[];
 
@@ -47,7 +48,7 @@ export class HeaderComponent implements OnInit {
   birthDay: string;
   address: string;
 
-  currentUser: any;
+  currentUser = null;
 
   accountName: string = '';
 
@@ -78,14 +79,17 @@ export class HeaderComponent implements OnInit {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
       console.log(this.products);
+    }, err => {
+
+    }, () => {
+      this.filterProduct = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
     });
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.products.filter(prod =>
-      prod.name.toLowerCase().includes(filterValue));
-  }
+
 
 
   signup() {
@@ -106,7 +110,13 @@ export class HeaderComponent implements OnInit {
         alert('sign up successful');
 
         document.getElementById('closeSignupModal').click();
-        await this.getInfo();
+        this.currentUser = await JSON.parse(localStorage.getItem('user'));
+        this.accountName = await this.currentUser.fullName;
+        this.cartCount = await JSON.parse(localStorage.getItem('cart')).length;
+        this.ngZone.run(() => {
+          this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+            this.router.navigate([`/`]));
+        });
       }
       else {
         alert(res.Message);
@@ -123,19 +133,20 @@ export class HeaderComponent implements OnInit {
 
   loginWithGoogle(): void {
     this.socicalLogin.login(Provider.GOOGLE).subscribe(user => {
-      console.log(user);
+
       if (this.listEmail.includes(user.email)) {
         this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
-          localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
+          localStorage.setItem('user', JSON.stringify(res.data));
           // alert('login successful!');
 
           document.getElementById('closeSigninModal').click();
-          this.getInfo();
-          await setTimeout(function () {
+          this.currentUser = await JSON.parse(localStorage.getItem('user'));
+          this.accountName = await this.currentUser.fullName;
+          this.cartCount = await JSON.parse(localStorage.getItem('cart')).length;
+          this.ngZone.run(() => {
             this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
               this.router.navigate([`/`]));
-          }, 600);
-          // window.location.reload();
+          });
         });
       }
       else {
@@ -144,16 +155,25 @@ export class HeaderComponent implements OnInit {
         data.hashedPassword = user.id;
         data.email = user.email;
         data.avatar = user.profileImg;
-        this.UserService.signup(data).subscribe(res => {
+        this.UserService.signup(data).subscribe(async res => {
           if (res.OK == true) {
 
-            this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(res => {
+            this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
 
               if (res.OK == true) {
                 localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
 
                 this.accountName = this.currentUser.fullName;
                 alert(res.Message);
+                document.getElementById('closeSigninModal').click();
+
+                this.currentUser = await JSON.parse(localStorage.getItem('user'));
+                this.accountName = await this.currentUser.fullName;
+                this.cartCount = await JSON.parse(localStorage.getItem('cart')).length;
+                this.ngZone.run(() => {
+                  this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+                    this.router.navigate([`/`]));
+                });
               }
               else {
                 alert(res.Message);
@@ -163,16 +183,19 @@ export class HeaderComponent implements OnInit {
             });
 
             document.getElementById('closeSigninModal').click();
-            setTimeout(function () {
+            this.currentUser = await JSON.parse(localStorage.getItem('user'));
+            this.accountName = await this.currentUser.fullName;
+            this.cartCount = await JSON.parse(localStorage.getItem('cart')).length;
+            this.ngZone.run(() => {
               this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
                 this.router.navigate([`/`]));
-            }, 600);
-            // window.location.reload();
+            });
           }
         });
 
       };
     });
+
   }
 
 
@@ -181,16 +204,19 @@ export class HeaderComponent implements OnInit {
       email: this.email,
       hashedPassword: this.pwd
     };
-    this.UserService.signin(data).subscribe(res => {
+    this.UserService.signin(data).subscribe(async res => {
 
       if (res.OK == true) {
         localStorage.setItem('user', JSON.stringify(JSON.parse(JSON.stringify(res)).data));
-        this.getInfo();
+
         document.getElementById('closeSigninModal').click();
-        setTimeout(function () {
+        this.currentUser = await JSON.parse(localStorage.getItem('user'));
+        this.accountName = await this.currentUser.fullName;
+        this.cartCount = await JSON.parse(localStorage.getItem('cart')).length;
+        this.ngZone.run(() => {
           this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
             this.router.navigate([`/`]));
-        }, 600);
+        });
       }
       else {
         alert(res.Message);
@@ -201,25 +227,26 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  getInfo() {
-    this.currentUser = JSON.parse(localStorage.getItem('user'));
-    this.accountName = this.currentUser.fullName;
-    this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+  async getInfo() {
+
+
   }
 
 
-  ngOnInit() {
+  private _filter(value: any): any {
+    const filterValue = value.toLowerCase();
+    return this.products.filter(prod =>
+      prod.name.toLowerCase().includes(filterValue));
+  }
+  async ngOnInit() {
+    if (localStorage.getItem('user')) {
+      this.currentUser = await JSON.parse(localStorage.getItem('user'));
+      this.accountName = await this.currentUser.fullName;
+    }
+   if(localStorage.getItem('cart'))  this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+  
     this.getAllProduct();
     this.getAllEmail();
-    this.getInfo();
-
-
-
-    this.filterProduct = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-
 
   }
 
@@ -229,9 +256,14 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('user');
       this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
         this.router.navigate([`/`]));
-      // window.location.reload();
+    
     }
 
+  }
+
+  regisNow(){
+    document.getElementById('closeSigninModal').click();
+    document.getElementById('toggleSignupModal').click();
   }
 
   ridirectToHome() {
