@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
   birthDay: string;
   address: string;
 
-  currentUser: any;
+  currentUser = null;
 
   accountName: string = '';
 
@@ -242,8 +242,8 @@ export class HeaderComponent implements OnInit {
       this.currentUser = await JSON.parse(localStorage.getItem('user'));
       this.accountName = await this.currentUser.fullName;
     }
-    this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
-    console.log(this.cartCount);
+   if(localStorage.getItem('cart'))  this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+  
     this.getAllProduct();
     this.getAllEmail();
 
@@ -255,7 +255,7 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('user');
       this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
         this.router.navigate([`/`]));
-      // window.location.reload();
+    
     }
 
   }
