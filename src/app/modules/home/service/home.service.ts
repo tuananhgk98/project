@@ -27,5 +27,9 @@ export class HomeService {
     increeViewCount(id,data) : Observable<any>{
         return this.http.post(`http://localhost:3000/product/increeView/${id}`, data);
     }
+
+    updateProfile(data) : Observable<any>{
+        return this.http.put('http://localhost:3000/user/update', data);
+    }
 }
 

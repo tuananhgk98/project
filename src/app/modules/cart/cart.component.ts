@@ -62,6 +62,7 @@ export class CartComponent implements OnInit {
     removeItem(id) {
         if (JSON.parse(localStorage.getItem('cart')).length == 1) {
             localStorage.removeItem('cart');
+            this.getCartInfo();
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate([`/cart`]));
         } else {

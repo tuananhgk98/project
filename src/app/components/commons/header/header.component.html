@@ -11,21 +11,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email">
-                    <br>
-                    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="pwd">
-            <div style="float: right;">
-            <button (click)="regisNow();" style="background: none; border: none; color: blue;">Register Now</button></div>
+                <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email">
+                <br>
+                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="pwd">
+                <div style="float: right;">
+                    <button (click)="regisNow();" style="background: none; border: none; color: blue;">Register
+                        Now</button></div>
 
                 <br>
-        
+
                 <br>
                 <button style="width: 100%;" class="btn btn-success" (click)="loginWithGoogle();">Login with Google
-                        <span class="fa fa-google"></span></button>
-                    <!-- <hr>
+                    <span class="fa fa-google"></span></button>
+                <!-- <hr>
                     <button style="width: 100%;" class="btn btn-primary">Login with Facebook <span
                             class="fa fa-facebook"></span></button> -->
-              
+
             </div>
             <div class="modal-footer">
                 <div style="padding-right: 40%;">
@@ -123,29 +124,33 @@
                     <li *ngIf="currentUser == null"><button style="border: none;background: none;" data-toggle="modal"
                             data-target="#signup" id="toggleSignupModal"><span class="fa fa-user-plus"
                                 style="color: #fff;font-size: 1.3em;"></span></button></li>
-                                <li *ngIf="currentUser !== null">
-                                    <img src="{{currentUser.avatar}}" alt="" style="width: 30px;height: 30px; border-radius: 50%;">
-                                </li>
-                    <li *ngIf="currentUser !== null" style="color:#fff">{{accountName}}</li>
+                    <li *ngIf="currentUser !== null">
+                        <img src="{{currentUser.avatar}}" alt="" style="width: 30px;height: 30px; border-radius: 50%;">
+                    </li>
+                    <li *ngIf="currentUser !== null" style="color:#fff"><button style="background: none;border: none;width: 130px;" (click)="ridirectToProfile();">{{accountName}}</button></li>
                     <li *ngIf="currentUser !== null"><button style="border: none;background: none;"
                             (click)="logout();"><span class="fa fa-sign-out"
                                 style="color: #fff;font-size: 1.3em;"></span></button></li>
                     <li>
-                            <div class="search" style="position: relative;">
-                                    <div class="form-group has-search">
-                                      <span class="fa fa-search form-control-feedback"></span>
-                                      <input type="text" class="form-control" placeholder="Search" matInput [matAutocomplete]="auto"
-                                        [formControl]="myControl">
+                        <div class="search" style="position: relative;padding-left:2.5em;">
+                            <div class="form-group has-search">
+                                <span class="fa fa-search form-control-feedback"></span>
+                                <input type="text" class="form-control" placeholder="Search" matInput
+                                    [matAutocomplete]="auto" [formControl]="myControl">
 
-                                  
-                                            <mat-autocomplete #auto="matAutocomplete" style="visibility: visible;position: absolute; z-index: 999999;top: 2.7em;background: #f7f0f0;max-width: 14em;">
-                                                    <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
-                                                      <p routerLink="/{{product._id}}">{{product.name}}</p>
-                                                    </mat-option>
-                                                  </mat-autocomplete>
-                                     
-                                    </div>
-                                  </div>
+
+                                <mat-autocomplete #auto="matAutocomplete"
+                                    style="visibility: visible;position: absolute; z-index: 999999;top: 2.7em;background: #f7f0f0;max-width: 14em;">
+                                    <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
+                                        <img src="{{product.imageString}}"
+                                            style="width: 20px;height: 20px;border-radius: 50%;" alt="">
+                                        <p (click)="ridirectToDetail(product._id)" style="display: inline-block;">
+                                            {{product.name}}</p>
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                            </div>
+                        </div>
                         <!-- <div class="search">
                             <div class="form-group has-search">
 
@@ -254,4 +259,5 @@
             </nav>
         </div>
     </div>
+
 </header>

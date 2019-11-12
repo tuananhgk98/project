@@ -75,7 +75,6 @@ export class HeaderComponent implements OnInit {
   }
 
   getAllProduct() {
-    console.log('123');
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
       console.log(this.products);
@@ -89,9 +88,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-
-
-
   signup() {
     let data = new UserModel();
     let date = new Date();
@@ -103,9 +99,7 @@ export class HeaderComponent implements OnInit {
     data.address = this.address;
     data.avatar = this.imgBase64;
     data.createOn = date.toString();
-    // console.log(data);
     this.UserService.signup(data).subscribe(async res => {
-      // console.log(res);
       if (res.OK == true) {
         alert('sign up successful');
 
@@ -137,8 +131,6 @@ export class HeaderComponent implements OnInit {
       if (this.listEmail.includes(user.email)) {
         this.UserService.signin({ email: user.email, hashedPassword: user.id }).subscribe(async res => {
           localStorage.setItem('user', JSON.stringify(res.data));
-          // alert('login successful!');
-
           document.getElementById('closeSigninModal').click();
           this.currentUser = await JSON.parse(localStorage.getItem('user'));
           this.accountName = await this.currentUser.fullName;
@@ -155,6 +147,10 @@ export class HeaderComponent implements OnInit {
         data.hashedPassword = user.id;
         data.email = user.email;
         data.avatar = user.profileImg;
+        data.address = null;
+        data.birthday = null;
+        data.phone = null;
+        data.createOn = new Date().toString();
         this.UserService.signup(data).subscribe(async res => {
           if (res.OK == true) {
 
@@ -243,9 +239,9 @@ export class HeaderComponent implements OnInit {
       this.currentUser = await JSON.parse(localStorage.getItem('user'));
       this.accountName = await this.currentUser.fullName;
     }
-   if(localStorage.getItem('cart'))  this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
-  
-    this.getAllProduct();
+    if (localStorage.getItem('cart')) this.cartCount = JSON.parse(localStorage.getItem('cart')).length;
+
+    await this.getAllProduct();
     this.getAllEmail();
 
   }
@@ -256,12 +252,12 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('user');
       this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
         this.router.navigate([`/`]));
-    
+
     }
 
   }
 
-  regisNow(){
+  regisNow() {
     document.getElementById('closeSigninModal').click();
     document.getElementById('toggleSignupModal').click();
   }
@@ -276,6 +272,10 @@ export class HeaderComponent implements OnInit {
 
   ridirectToCart() {
     this.router.navigate(['/cart']);
+  }
+
+  ridirectToProfile() {
+    this.router.navigate([`/user/${this.currentUser._id}`]);
   }
 
 }

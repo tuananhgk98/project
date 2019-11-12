@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<div class="container" style="padding-top: 10em; text-align: center;">
+<div style="padding-top:5em; width:100%; padding-left:24em;">
+    <input type="text" class="form-control" style="width:50%" [(ngModel)]="name">
+    <br/>
+    <input type="email" class="form-control" style="width:50%" [(ngModel)]="email" [disabled]="true">
+    <br/>
+    <input type="text" class="form-control" style="width:50%" [(ngModel)]="phone" placeholder="Phone">
+    <br/>
+    <input type="date" class="form-control" style="width:50%" [(ngModel)]="birthday" placeholder="Birth Day">
+
+</div>
+</div>
+<br>
+<br>
+<div id="signUp-location">
+    <div class="map" style="padding-left:30%;">
+        <agm-map [zoom]="15" [latitude]="latitude" [longitude]="longitude" >
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+         </agm-map> 
+
+    </div>
+    <div class="col-10 signUp-option"><br>
+     
+        <input name="address" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+        <br>
+        <br> 
+        <div style="text-align:center;">
+            <button class="mx-auto btn btn-dark btn-block" (click)="updateProfile();">Update</button>
+        </div>
+    </div>
+</div>

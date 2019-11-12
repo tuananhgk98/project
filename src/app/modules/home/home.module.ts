@@ -9,14 +9,19 @@ import { CommonsModule } from '../../components/commons/commons.module';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import {AgmCoreModule} from "@agm/core"
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
 import { SubscribeComponent } from '../../components/commons/subscribe/subscribe.component';
 import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [HomeComponent,
      ProductDetailComponent,
+     UserProfileComponent,
     //  HeaderComponent,
     //  FooterComponent,
     //  SubscribeComponent
@@ -32,7 +37,12 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
     MatInputModule,
     ReactiveFormsModule,
     CommonsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    GooglePlaceModule,
+    AgmCoreModule.forRoot({
+      apiKey:"AIzaSyDUNFuTjXmVxs8bcr5xf8ZPPnBejsOURSM",
+      libraries: ['places']
+    })
 
   ]
   
