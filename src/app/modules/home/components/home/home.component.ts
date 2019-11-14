@@ -27,7 +27,9 @@ export class HomeComponent implements OnInit {
   getAllProduct() {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
-      console.log(this.products);
+      this.products.sort( (a, b) => {
+        return b.viewCount - a.viewCount;
+      } )
     });
   }
 

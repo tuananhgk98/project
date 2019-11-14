@@ -54,7 +54,7 @@ export class ProductDetailComponent implements OnInit {
     let data = {
       id: this.product._id,
       name: this.product.name,
-      imageURL: this.product.imageURL,
+      imageString: this.product.imageString,
       price: this.product.price,
       quantity: this.qty
     };
