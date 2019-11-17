@@ -8,6 +8,7 @@ import { SubscribeComponent } from '../../components/commons/subscribe/subscribe
 
 import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
 import { TestComponent } from './test/test.component';
+// import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -17,7 +18,8 @@ import { TestComponent } from './test/test.component';
     HeaderComponent,
     FooterComponent,
     SubscribeComponent,
-    TestComponent
+    TestComponent,
+    // LoaderComponent
   ],
   imports: [
     CommonModule,

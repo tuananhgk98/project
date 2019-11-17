@@ -127,7 +127,9 @@
                     <li *ngIf="currentUser !== null">
                         <img src="{{currentUser.avatar}}" alt="" style="width: 30px;height: 30px; border-radius: 50%;">
                     </li>
-                    <li *ngIf="currentUser !== null" style="color:#fff"><button style="background: none;border: none;width: 130px;" (click)="ridirectToProfile();">{{accountName}}</button></li>
+                    <li *ngIf="currentUser !== null" style="color:#fff"><button
+                            style="background: none;border: none;width: 130px;"
+                            (click)="ridirectToProfile();">{{accountName}}</button></li>
                     <li *ngIf="currentUser !== null"><button style="border: none;background: none;"
                             (click)="logout();"><span class="fa fa-sign-out"
                                 style="color: #fff;font-size: 1.3em;"></span></button></li>
@@ -144,8 +146,10 @@
                                     <mat-option *ngFor="let product of filterProduct | async " [value]="product.name">
                                         <img src="{{product.imageString}}"
                                             style="width: 20px;height: 20px;border-radius: 50%;" alt="">
-                                        <p (click)="ridirectToDetail(product._id)" style="display: inline-block;">
-                                            {{product.name}}</p>
+                                        <!-- <p routerLink="/{{product._id}}" style="display: inline-block;" *ngIf="product">
+                                            {{product.name.split(' ').slice(0,5).join(' ')}}</p> -->
+                                        <button (click)="ridirectToDetail(product._id)" style="display: inline-block;font-size: 10px;background: none;border: none;" *ngIf="product">
+                                            {{product.name.split(' ').splice(0,5).join(' ')}}</button>
                                     </mat-option>
                                 </mat-autocomplete>
 

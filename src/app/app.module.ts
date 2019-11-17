@@ -20,10 +20,20 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
 
 
 
+import { LoaderService } from './service/loader.service';
+import { LoaderInterceptor } from './interceptor/loader.interceptor';
+import { LoaderComponent } from './components/commons/loader/loader.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
+import { APIInterceptor } from './interceptor/api.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoaderComponent
     // HeaderComponent,
     // FooterComponent,
     // SubscribeComponent,
@@ -36,6 +46,7 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
     FormsModule,
     HttpClientModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatFormFieldModule,
     MatCheckboxModule,
@@ -61,7 +72,16 @@ import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckbox
   //   FooterComponent,
   //   SubscribeComponent
   // ],
-  providers: [],
+  providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: APIInterceptor,
+    //   multi: true
+    // },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA

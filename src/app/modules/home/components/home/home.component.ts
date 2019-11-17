@@ -22,15 +22,31 @@ export class HomeComponent implements OnInit {
   p: Number = 1;
   count: Number = 5;
 
+  filterPrice = 0;
+
+  filterProductArray: any;
+
 
 
   getAllProduct() {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
-      this.products.sort( (a, b) => {
+      this.filterProductArray = [...this.products];
+      this.filterProductArray.sort((a, b) => {
         return b.viewCount - a.viewCount;
-      } )
+      })
     });
+  }
+
+  filterByPrice() {
+    if (this.filterPrice == 0) this.filterProductArray = [...this.products];
+    if (this.filterPrice == 1) this.filterProductArray = this.products.filter(i => i.price >= 100000 && i.price <= 200000);
+    if (this.filterPrice == 2) this.filterProductArray = this.products.filter(i => i.price >= 200000 && i.price <= 300000);
+    if (this.filterPrice == 3) this.filterProductArray = this.products.filter(i => i.price >= 300000 && i.price <= 400000);
+    if (this.filterPrice == 4) this.filterProductArray = this.products.filter(i => i.price >= 400000 && i.price <= 500000);
+    if (this.filterPrice == 5) this.filterProductArray = this.products.filter(i => i.price >= 500000);
+
+
   }
 
   getCartInfo() {

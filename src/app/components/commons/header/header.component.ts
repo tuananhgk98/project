@@ -74,6 +74,22 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  change_alias(alias) {
+    var str = alias;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+    str = str.replace(/ + /g, " ");
+    str = str.trim();
+    return str;
+  }
+
   getAllProduct() {
     this.HomeService.getAllProduct().subscribe(res => {
       this.products = JSON.parse(JSON.stringify(res)).data;
@@ -230,9 +246,9 @@ export class HeaderComponent implements OnInit {
 
 
   private _filter(value: any): any {
-    const filterValue = value.toLowerCase();
+    const filterValue = this.change_alias(value).toLowerCase();
     return this.products.filter(prod =>
-      prod.name.toLowerCase().includes(filterValue));
+      this.change_alias(prod.name).toLowerCase().includes(filterValue));
   }
   async ngOnInit() {
     if (localStorage.getItem('user')) {
@@ -267,9 +283,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ridirectToDetail(id) {
-    this.router.navigate([`/${id}`]);
+    this.router.navigateByUrl('/cart', { skipLocationChange: true }).then(() =>
+    this.router.navigate([`/${id}`]));
   }
-
   ridirectToCart() {
     this.router.navigate(['/cart']);
   }

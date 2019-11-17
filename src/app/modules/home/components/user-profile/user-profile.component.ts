@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Router } from '@angular/router';
 
+
 import { HomeService } from '../../service/home.service';
 declare var google: any;
 @Component({
@@ -14,7 +15,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private HomeService : HomeService
+    private HomeService: HomeService
   ) { }
 
   @ViewChild("placesRef", { static: false }) placesRef: GooglePlaceDirective;
@@ -25,10 +26,14 @@ export class UserProfileComponent implements OnInit {
   }
 
   address: string = '';
-  name : string = '';
-  email : string = '';
-  phone : number ;
-  birthday : string;
+  name: string = '';
+  email: string = '';
+  phone: number;
+  birthday: string;
+  currentGPS: any;
+  pickerAddressGPS: any;
+
+
 
   public handleAddressChange(address: any) {
     console.log(address.formatted_address);
@@ -39,6 +44,10 @@ export class UserProfileComponent implements OnInit {
       let lattt = res[0].geometry.location.lat();
       let longgg = res[0].geometry.location.lng();
       console.log(lattt, longgg);
+      // this.pickerAddressGPS = new google.maps.LatLng(lattt, longgg);
+      // console.log(this.pickerAddressGPS);
+      // console.log(google.maps.geometry.spherical.computeDistanceBetween(this.currentGPS, this.pickerAddressGPS));
+
       this.latitude = lattt;
       this.longitude = longgg;
 
@@ -53,12 +62,16 @@ export class UserProfileComponent implements OnInit {
     if (navigator.geolocation) {
       let geocoder = new google.maps.Geocoder();
       navigator.geolocation.getCurrentPosition(postion => {
-        console.log(postion);
+        // console.log(postion);
         this.latitude = postion.coords.latitude
         this.longitude = postion.coords.longitude
         let gps = { lat: this.latitude, lng: this.longitude }
+        // console.log(gps);
+        this.currentGPS = {...gps};
+        console.log(this.currentGPS);
+        this.currentGPS = new google.maps.LatLng(this.latitude, this.longitude);
         geocoder.geocode({ 'location': gps }, function (res) {
-          console.log(res[0].formatted_address);
+          // console.log(res[0].formatted_address);
           this.address = res[0].formatted_address;
 
         })
@@ -74,17 +87,19 @@ export class UserProfileComponent implements OnInit {
     geocoder.geocode({ 'location': gps }, function (res: any) {
       // console.log('abc');
 
-    })
+    });
   }
 
-  updateProfile(){
+
+
+  updateProfile() {
     let data = {
-      _id : JSON.parse(localStorage.getItem('user'))._id,
-      fullName : this.name,
-      phone : this.phone,
-      address : this.address,
-      birthday : this.birthday,
-      avatar : JSON.parse(localStorage.getItem('user')).avatar
+      _id: JSON.parse(localStorage.getItem('user'))._id,
+      fullName: this.name,
+      phone: this.phone,
+      address: this.address,
+      birthday: this.birthday,
+      avatar: JSON.parse(localStorage.getItem('user')).avatar
     };
     this.HomeService.updateProfile(data).subscribe(res => {
       console.log(res);
@@ -93,18 +108,27 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  calculateDistance() {
+    const home = new google.maps.LatLng(20.867595500000004,105.9467854);
+    const office = new google.maps.LatLng(21.0670581, 105.82446570000002);
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(home, office);
+    console.log('khoang cach tu nha den cong ty la',distance/1000, 'km');
+  }
 
   ngOnInit() {
- 
+
     this.getCurrentLocation();
+    this.calculateDistance();
     this.name = JSON.parse(localStorage.getItem('user')).fullName;
     this.email = JSON.parse(localStorage.getItem('user')).email;
     this.phone = JSON.parse(localStorage.getItem('user')).phone;
     this.birthday = JSON.parse(localStorage.getItem('user')).birthday;
-   
-    console.log(this.name);
 
-   
+    // // console.log(this.name);
+
+    // this.calculateDistance();
+
+
   }
 
 }

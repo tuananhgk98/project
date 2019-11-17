@@ -9,7 +9,7 @@ import { CommonsModule } from '../../components/commons/commons.module';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import {AgmCoreModule} from "@agm/core"
+import {AgmCoreModule, MapsAPILoader} from "@agm/core"
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 import { HeaderComponent } from '../../components/commons/header/header.component';
@@ -41,7 +41,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     GooglePlaceModule,
     AgmCoreModule.forRoot({
       apiKey:"AIzaSyDUNFuTjXmVxs8bcr5xf8ZPPnBejsOURSM",
-      libraries: ['places']
+      libraries: ['geometry']
     })
 
   ]
