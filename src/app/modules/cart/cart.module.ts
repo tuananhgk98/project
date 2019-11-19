@@ -12,6 +12,9 @@ import { SubscribeComponent } from '../../components/commons/subscribe/subscribe
 import { CommonsModule } from '../../components/commons/commons.module';
 
 
+import {AgmCoreModule, MapsAPILoader} from "@agm/core"
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 @NgModule({
   declarations: [CartComponent,
     // HeaderComponent,
@@ -22,7 +25,12 @@ import { CommonsModule } from '../../components/commons/commons.module';
     CommonModule,
     CartRoutingModule,
     FormsModule,
-    CommonsModule
+    CommonsModule,
+    GooglePlaceModule,
+    AgmCoreModule.forRoot({
+      apiKey:"AIzaSyDUNFuTjXmVxs8bcr5xf8ZPPnBejsOURSM",
+      libraries: ['geometry']
+    })
   ]
 })
 export class CartModule { }

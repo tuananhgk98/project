@@ -86,35 +86,31 @@
         <p>You have no items in your shopping cart, <a routerLink="/">buy now?</a></p>
     </div>
 </section>
+<div id="pay" style="padding-left:30%;width:70%;padding-bottom:5em;display : none;">
+    <label for="name">Receiver name</label>
+    <input type="text" id="name" class="form-control" placeholder="Name" [(ngModel)]="name">
+    <br>
+    <label for="email">Receiver email</label>
+    <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email">
+    <br>
+    <label for="phone">Receiver phone</label>
+    <input type="text" class="form-control" placeholder="Phone" [(ngModel)]="phone">
+    <br>
+    <label for="address">Receive address</label>
+    <input id="address" name="address" class="form-control" ngx-google-places-autocomplete [options]='options'
+        #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" />
+    <br>
+    <label for="shipPrice" style="display:none;">Ship Price</label>
+    <input type="text" class="form-control" placeholder="Ship Price" id="shipPrice" name="ship"
+        [(ngModel)]="ship" [disabled]="true" style="display:none;">
+    <div style="text-align:center;padding-top:2em;">
+        <button class="btn btn-primary">Payment</button>
+    </div>
+</div>
 <app-subscribe></app-subscribe>
 <app-footer></app-footer>
 
 
-<!-- Button trigger modal -->
-<button type="button" id="togglePaymentModal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-    style="display: none;;">
 
-</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" placeholder="Name" [(ngModel)]="name">
-                <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email">
-                <input type="text" class="form-control" placeholder="Phone" [(ngModel)]="phone">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
