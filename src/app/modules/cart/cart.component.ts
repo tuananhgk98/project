@@ -41,11 +41,10 @@ export class CartComponent implements OnInit {
     name: string;
     email: string;
     phone: any;
-    ship: any;
+    // ship: any = localStorage.getItem('ship').split(',')[0];
 
     getCartInfo() {
         this.cart = JSON.parse(localStorage.getItem('cart'));
-
         this.total = this.cart.map(i => i.price * i.quantity).reduce((a, b) => a + b, 0);
     }
 
@@ -134,7 +133,7 @@ export class CartComponent implements OnInit {
         }
     }
 
-    payment() {
+    processToPayment() {
         if (!localStorage.getItem('user')) {
             document.getElementById('toggleSigninModal').click();
         }
@@ -147,34 +146,62 @@ export class CartComponent implements OnInit {
             $('html, body').animate({
                 scrollTop: $("#pay").offset().top
             }, 1000);
+
         }
     }
+
+    payment(){
+        let date = new Date();
+        let billExport = {
+            userId : JSON.parse(localStorage.getItem('user'))._id,
+            total : +$('#total').val(),
+            createOn : `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+        };
+        this.service.createBillExport(billExport).subscribe(res => {
+            alert('Order successful!');
+            // let billExportDetail = {
+
+            // };
+        });
+    }
+    
 
 
     public handleAddressChange(address: any) {
         console.log(address.formatted_address);
+        // $('#shipPrice').hide(500);
         this.address = address.formatted_address;
         let geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address.formatted_address }, function (res) {
+        geocoder.geocode({ 'address': address.formatted_address }, async function (res) {
             let lattt = res[0].geometry.location.lat();
             let longgg = res[0].geometry.location.lng();
+            console.log(lattt, longgg);
             this.pickerAddressGPS = new google.maps.LatLng(lattt, longgg);
-            const home = new google.maps.LatLng(21.0670581, 105.82446570000002);
-            const distance = +google.maps.geometry.spherical.computeDistanceBetween(home, this.pickerAddressGPS) / 1000;
+            let home = new google.maps.LatLng(21.0670581, 105.82446570000002);
+            let distance = +google.maps.geometry.spherical.computeDistanceBetween(home, this.pickerAddressGPS) / 1000;
+            console.log(distance);
+            let total = +$('#totalText').html();
+           
             if (distance < 5) {
-                this.ship = `${distance.toString().split('').splice(0, 3).join('')}km (free)`;
-                console.log(this.ship);
+                localStorage.setItem('ship', `${distance.toString().split('').splice(0, 3).join('')}km (free), 0`);
+                $('#shipPrice').val(`${distance.toString().split('').splice(0, 3).join('')}km (free)`);
+                $('#total').val(+localStorage.getItem('ship').split(',')[1] + total);
                 $('#shipPrice').show(500);
+                $('#total').show(500);
             }
             if (distance > 5 && distance < 15) {
-                this.ship = `${distance.toString().split('').splice(0, 3).join('')}km (15000 vnd)`;
-                console.log(this.ship);
+                localStorage.setItem('ship', `${distance.toString().split('').splice(0, 3).join('')}km (15000 vnd), 15000`);
+                $('#shipPrice').val(`${distance.toString().split('').splice(0, 3).join('')}km (15000 vnd)`);
+                $('#total').val(+localStorage.getItem('ship').split(',')[1] + total);
                 $('#shipPrice').show(500);
+                $('#total').show(500);
             }
             if (distance > 15 && distance < 30) {
-                this.ship = `${distance.toString().split('').splice(0, 3).join('')}km (30000 vnd)`;
-                console.log(this.ship);
+                localStorage.setItem('ship', `${distance.toString().split('').splice(0, 3).join('')}km (30000 vnd), 30000`);
+                $('#shipPrice').val(`${distance.toString().split('').splice(0, 3).join('')}km (30000 vnd)`);
+                $('#total').val(+localStorage.getItem('ship').split(',')[1] + total);
                 $('#shipPrice').show(500);
+                $('#total').show(500);
             }
             if (distance > 30) {
                 alert('Sorry, we just ship within a radius of 30km ');
@@ -214,6 +241,7 @@ export class CartComponent implements OnInit {
 
     ngOnInit() {
         this.getCartInfo();
+
     }
 
 }

@@ -73,10 +73,10 @@
                         <h5>Discount <span>-{{discount}}%</span></h5>
                     </div>
                     <div class="total">
-                        <h4>Total <span>{{this.total}}</span></h4>
+                        <h4>Total <span id="totalText">{{this.total}}</span></h4>
                     </div>
                     <div class="cart_footer" style="float: right;">
-                        <button class="btn btn-primary" (click)="payment();">Proceed to Checkout</button>
+                        <button class="btn btn-primary" (click)="processToPayment();">Proceed to Checkout</button>
                     </div>
                 </div>
             </div>
@@ -101,10 +101,13 @@
         #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" />
     <br>
     <label for="shipPrice" style="display:none;">Ship Price</label>
-    <input type="text" class="form-control" placeholder="Ship Price" id="shipPrice" name="ship"
-        [(ngModel)]="ship" [disabled]="true" style="display:none;">
+    <input type="text" class="form-control" placeholder="Ship Price" id="shipPrice" name="ship" [disabled]="true" style="display:none;">
+    <br>
+    <label for="total" style="display: none;">Total</label>
+    <input type="text" class="form-control" placeholder="Total" id="total" style="display: none;" [disabled]="true">
+    <br>
     <div style="text-align:center;padding-top:2em;">
-        <button class="btn btn-primary">Payment</button>
+        <button class="btn btn-primary" (click)="payment();">Payment</button>
     </div>
 </div>
 <app-subscribe></app-subscribe>

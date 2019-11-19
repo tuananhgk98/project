@@ -3,8 +3,13 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpInterceptor } from '@angular/common/http';
-import {NgxSocialLoginModule} from 'ng8-social-login';
+import { NgxSocialLoginModule } from 'ng8-social-login';
 import { FacebookModule } from 'ngx-facebook';
+import { CommonModule } from '@angular/common';
+
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,16 +42,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     // HeaderComponent,
     // FooterComponent,
     // SubscribeComponent,
-  
+
 
   ],
-  imports: [
+  imports: [CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatCheckboxModule,
@@ -55,16 +61,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FacebookModule.forRoot(),
     NgxSocialLoginModule.init(
       {
-          google: {
-              client_id: '980432911492-mt13je8t7hoqmie1mdilur17ole447m1.apps.googleusercontent.com'
-          },
-          // facebook: {
-          //     initOptions: {
-          //         appId: 'YOUR_APP_ID'
-          //     }
-          // }
+        google: {
+          client_id: '980432911492-mt13je8t7hoqmie1mdilur17ole447m1.apps.googleusercontent.com'
+        },
+        // facebook: {
+        //     initOptions: {
+        //         appId: 'YOUR_APP_ID'
+        //     }
+        // }
       }
-  ),
+    ),
 
   ],
   // exports: [

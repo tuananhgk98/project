@@ -19,4 +19,8 @@ export class CartService {
     getCode(data): Observable<any> {
         return this.http.post('http://localhost:3000/discount/find', data);
     }
+
+    createBillExport(data : any) : Observable<any>{
+        return this.http.post('http://localhost:3000/billExport/create', data);
+    }
 }

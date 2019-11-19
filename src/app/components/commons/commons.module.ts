@@ -1,6 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HeaderComponent } from '../../components/commons/header/header.component';
 import { FooterComponent } from '../../components/commons/footer/footer.component';
@@ -8,7 +11,7 @@ import { SubscribeComponent } from '../../components/commons/subscribe/subscribe
 
 import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatInputModule } from '@angular/material';
 import { TestComponent } from './test/test.component';
-// import { LoaderComponent } from './loader/loader.component';
+
 
 
 
@@ -19,17 +22,20 @@ import { TestComponent } from './test/test.component';
     FooterComponent,
     SubscribeComponent,
     TestComponent,
-    // LoaderComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    
+    MatProgressSpinnerModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // BrowserAnimationsModule,
+
   ],
   exports: [
     HeaderComponent,
