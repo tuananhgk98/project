@@ -40,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
       id: this.productId
     };
 
-    this.HomeService.getProductByid(this.productId, data).subscribe(
+    this.HomeService.getProductByid(this.productId).subscribe(
       res => {
         this.product = JSON.parse(JSON.stringify(res)).data;
         console.log(this.product);
@@ -101,7 +101,7 @@ export class ProductDetailComponent implements OnInit {
     };
     let Cart = JSON.parse(localStorage.getItem('cart'));
 
-    this.HomeService.getProductByid(this.product._id, dataProduct).subscribe(res => {
+    this.HomeService.getProductByid(this.product._id).subscribe(res => {
       let index = Cart.findIndex(function (i) {
         return i.id == JSON.parse(JSON.stringify(res)).data._id;
       });

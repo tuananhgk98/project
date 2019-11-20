@@ -58,7 +58,7 @@ export class CartComponent implements OnInit {
             id: id
         };
 
-        this.HomeService.getProductByid(id, dataProduct).subscribe(res => {
+        this.HomeService.getProductByid(id).subscribe(res => {
             if (val > JSON.parse(JSON.stringify(res)).data.quantity) {
                 alert(`You only can buy ${JSON.parse(JSON.stringify(res)).data.name} up to ${JSON.parse(JSON.stringify(res)).data.quantity}`);
                 let index = this.cart.findIndex(function (i) {
@@ -157,10 +157,11 @@ export class CartComponent implements OnInit {
     payment() {
         let date = new Date();
         let billExport = {
-            userId: JSON.parse(localStorage.getItem('user'))._id,
             total: +$('#total').val(),
+            idProduct : JSON.parse(localStorage.getItem('cart')).map(i => i.id),
             createOn: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
         };
+        console.log(billExport);
         this.service.createBillExport(billExport).subscribe(res => {
             let billExportDetail = {
                 idBillExport: JSON.parse(JSON.stringify(res)).data._id,

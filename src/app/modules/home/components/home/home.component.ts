@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
       });
       if (index !== -1) {
         var currentProd;
-        this.HomeService.getProductByid(id, dataProd).subscribe(res => {
+        this.HomeService.getProductByid(id).subscribe(res => {
           currentProd = JSON.parse(JSON.stringify(res)).data;
 
 
