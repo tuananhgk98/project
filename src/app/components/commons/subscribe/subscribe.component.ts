@@ -15,7 +15,8 @@ export class SubscribeComponent implements OnInit {
 
   subscribe(){
     let data = {
-      "mail" : this.email
+      "mail" : this.email,
+      "subject" : 'Thanks for subscribe my shop!!!'
     };
     this.service.subscribe(data).subscribe(res => {
       console.log(res);

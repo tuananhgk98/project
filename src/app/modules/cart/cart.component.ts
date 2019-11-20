@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { CartService } from './cart.service';
 import { HomeService } from '../home/service/home.service';
+import { SubscribeService } from '../../components/commons/subscribe/subscribe.service';
 import { Router } from '@angular/router';
 
 declare var google: any;
@@ -25,7 +26,8 @@ export class CartComponent implements OnInit {
 
     constructor(private service: CartService,
         private HomeService: HomeService,
-        private router: Router) { }
+        private router: Router,
+        public SubscribeService: SubscribeService) { }
 
     currentGPS: any;
     latitude: any;
@@ -152,31 +154,42 @@ export class CartComponent implements OnInit {
 
 
 
-    payment(){
+    payment() {
         let date = new Date();
         let billExport = {
-            userId : JSON.parse(localStorage.getItem('user'))._id,
-            total : +$('#total').val(),
-            createOn : `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+            userId: JSON.parse(localStorage.getItem('user'))._id,
+            total: +$('#total').val(),
+            createOn: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
         };
         this.service.createBillExport(billExport).subscribe(res => {
-            let billExportDetail ={
-                idBillExport : JSON.parse(JSON.stringify(res)).data._id,
-                userOrderName : JSON.parse(localStorage.getItem('user')).fullName,
-                product : JSON.parse(localStorage.getItem('cart')),
-                total : +$('#total').val(),
-                description : 'none',
-                phone : JSON.parse(localStorage.getItem('user')).phone,
-                createOn : `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
-            }
-           this.service.createBillExportDetail(billExportDetail).subscribe(res => {
-               console.log(res);
-           })
-            alert('Order successful!');
+            let billExportDetail = {
+                idBillExport: JSON.parse(JSON.stringify(res)).data._id,
+                userOrderName: JSON.parse(localStorage.getItem('user')).fullName,
+                product: JSON.parse(localStorage.getItem('cart')),
+                total: +$('#total').val(),
+                description: 'none',
+                phone: JSON.parse(localStorage.getItem('user')).phone,
+                createOn: `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
+            };
            
+            this.service.createBillExportDetail(billExportDetail).subscribe(res => {
+                console.log(res);
+            });
+
+            let mail = {
+                "mail": JSON.parse(localStorage.getItem('user')).email,
+                "subject": `
+               Order successful, thank you for using the service!!`
+            };
+            this.SubscribeService.subscribe(mail).subscribe(res => {
+                console.log(res);
+            });
+            alert('Order successful!, keep check your phone to receive this cake');
+            localStorage.removeItem('cart');
+            this.router.navigate(['/']);
         });
     }
-    
+
 
 
     public handleAddressChange(address: any) {
@@ -193,7 +206,7 @@ export class CartComponent implements OnInit {
             let distance = +google.maps.geometry.spherical.computeDistanceBetween(home, this.pickerAddressGPS) / 1000;
             console.log(distance);
             let total = +$('#totalText').html();
-           
+
             if (distance < 5) {
                 localStorage.setItem('ship', `${distance.toString().split('').splice(0, 3).join('')}km (free), 0`);
                 $('#shipPrice').val(`${distance.toString().split('').splice(0, 3).join('')}km (free)`);
