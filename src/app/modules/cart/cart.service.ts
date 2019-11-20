@@ -20,7 +20,10 @@ export class CartService {
         return this.http.post('http://localhost:3000/discount/find', data);
     }
 
-    createBillExport(data : any) : Observable<any>{
+    createBillExport(data: any): Observable<any> {
         return this.http.post('http://localhost:3000/billExport/create', data);
+    }
+    createBillExportDetail(data: any): Observable<any> {
+        return this.http.post('http://localhost:3000/billExportDetail/create', data);
     }
 }

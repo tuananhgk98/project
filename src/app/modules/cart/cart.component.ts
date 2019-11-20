@@ -150,6 +150,8 @@ export class CartComponent implements OnInit {
         }
     }
 
+
+
     payment(){
         let date = new Date();
         let billExport = {
@@ -158,10 +160,20 @@ export class CartComponent implements OnInit {
             createOn : `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
         };
         this.service.createBillExport(billExport).subscribe(res => {
+            let billExportDetail ={
+                idBillExport : JSON.parse(JSON.stringify(res)).data._id,
+                userOrderName : JSON.parse(localStorage.getItem('user')).fullName,
+                product : JSON.parse(localStorage.getItem('cart')),
+                total : +$('#total').val(),
+                description : 'none',
+                phone : JSON.parse(localStorage.getItem('user')).phone,
+                createOn : `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`,
+            }
+           this.service.createBillExportDetail(billExportDetail).subscribe(res => {
+               console.log(res);
+           })
             alert('Order successful!');
-            // let billExportDetail = {
-
-            // };
+           
         });
     }
     
