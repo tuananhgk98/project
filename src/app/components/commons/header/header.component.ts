@@ -103,6 +103,12 @@ export class HeaderComponent implements OnInit {
       );
     });
   }
+  
+  private _filter(value: any): any {
+    const filterValue = this.change_alias(value).toLowerCase();
+    return this.products.filter(prod =>
+      this.change_alias(prod.name).toLowerCase().includes(filterValue));
+  }
 
   signup() {
     let data = new UserModel();
@@ -245,11 +251,6 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  private _filter(value: any): any {
-    const filterValue = this.change_alias(value).toLowerCase();
-    return this.products.filter(prod =>
-      this.change_alias(prod.name).toLowerCase().includes(filterValue));
-  }
   async ngOnInit() {
     if (localStorage.getItem('user')) {
       this.currentUser = await JSON.parse(localStorage.getItem('user'));

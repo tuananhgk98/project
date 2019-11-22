@@ -19,4 +19,12 @@ export class SubscribeService {
     subscribe(data): Observable<any> {
         return this.http.post('http://localhost:3000/mail/sendSubscribeMail', data);
     }
+
+   getProfileById(id) : Observable<any>{
+       return this.http.get(`http://localhost:3000/user/${id}`);
+   }
+
+    sendMail(data : any) : Observable<any>{
+        return this.http.post('', data);
+    }
 }

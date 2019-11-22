@@ -66,7 +66,7 @@
                         </div>
                         <div class="cake_text">
                             <h4>{{item.price}}</h4>
-                            <h3 *ngIf="products">{{item.name.split(' ').splice(0,5).join(' ')}}</h3>
+                            <h3 *ngIf="products">{{item.name.split(' ').splice(0,4).join(' ')}}</h3>
                             <button class="btn btn-primary pest_btn"
                                 (click)="addToCart(item._id,item.name,item.imageString,item.price)">Add to cart</button>
                         </div>
