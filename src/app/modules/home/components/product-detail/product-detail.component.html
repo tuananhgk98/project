@@ -18,7 +18,7 @@
         <div class="row product_d_price">
             <div class="col-lg-6">
                 <div class="product_img">
-                    <img class="img-fluid" src="{{product.imageString}}" alt="" >
+                    <img class="img-fluid" *ngIf="product.imageString !== undefined" src="{{product.imageString}}" alt="" >
                     <i class="fas fa-eye" style="position: absolute; top: .3vw; right: 5vw;font-size: 1.5em;">&nbsp;{{product.viewCount}}</i>
                 </div>
             </div>

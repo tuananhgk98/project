@@ -36,17 +36,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getProductByid() {
-    let data = {
-      id: this.productId
-    };
-
-    this.HomeService.getProductByid(this.productId).subscribe(
-      res => {
-        this.product = JSON.parse(JSON.stringify(res)).data;
-        console.log(this.product);
-        this.increeViewCount();
-      }
-    );
+   this.HomeService.getAllProduct().subscribe(res => {
+     this.product = JSON.parse(JSON.stringify(res)).data.find((i : any) => i._id == this.productId );
+   });
   }
 
   addToCart() {
@@ -121,9 +113,6 @@ you have bought ${Cart[index].quantity}`);
     this.productId = window.location.href.split('/').pop();
     this.getProductByid();
     this.getCartInfo();
-
-
-
   }
 
 }
